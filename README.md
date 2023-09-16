@@ -59,5 +59,8 @@ git clone https://github.com/yjwong1999/Yolov5_DeepSort_Face.git
 ```
 
 - Refer [my tutorial](https://github.com/yjwong1999/Yolov5_DeepSort_Face#retrain-opensphere-model) here
-
+```
+cd Yolov5_DeepSort_Face/Yolov5_DeepSort_Face
+<the rest follow the link above>
+```
 
