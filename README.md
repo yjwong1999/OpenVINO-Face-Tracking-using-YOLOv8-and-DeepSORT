@@ -6,7 +6,7 @@ Train YOLOv8 using UFDD dataset + Convert to OpenVINO
 Notice:
 Please download the latest Jupyter Notebook (YOLOv8 Training for UFDD.ipynb.ipynb) from the provided Colab link.
 
-## Steps to run Code
+## Setup the codes/environment
 
 - Create a conda environment, and activate it
 ```
@@ -30,5 +30,26 @@ cd OpenVINO-Face-Tracking-using-YOLOv8-and-DeepSORT
 pip install jupyter
 pip install -r requirements.txt
 ```
+
+## Train YOLOv8 Face Detection model -> Convert to OpenVINO
+
+- Make sure you activate the conda environment
+```
+conda activate mcfdr 
+```
+
+- Method 1: Jupyter notebook
+```
+jupyter notebook
+<click the YOLOv8_Training_for_UFDD.ipynb>
+<run the codes step by step>
+```
+
+- Method 2: Colab
+```
+<click the Colab link above>
+<run the codes step by step>
+```
+
 
 
