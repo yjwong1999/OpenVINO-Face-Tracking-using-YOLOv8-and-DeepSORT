@@ -10390,15 +10390,15 @@
 		<Runtime_version value="2023.0.2-11065-e662b1a3301-releases/2023/0" />
 		<conversion_parameters>
 			<framework value="onnx" />
-			<input_model value="DIR/best.onnx" />
+			<input_model value="DIR/yolov8_pytorch.onnx" />
 			<is_python_api_used value="True" />
-			<model_name value="best" />
+			<model_name value="YOLOv8_pytorch" />
 		</conversion_parameters>
 		<framework>
 			<author value="Ultralytics" />
 			<batch value="1" />
-			<date value="2023-09-16T15:31:50.420138" />
-			<description value="Ultralytics best model trained on UFDD.yaml" />
+			<date value="2023-09-16T15:55:27.095626" />
+			<description value="Ultralytics YOLOv8_pytorch model trained on UFDD.yaml" />
 			<imgsz value="[640, 640]" />
 			<license value="AGPL-3.0 https://ultralytics.com/license" />
 			<names value="{0: 'face'}" />
