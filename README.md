@@ -51,4 +51,8 @@ jupyter notebook
 <run the codes step by step>
 ```
 
+## Train OpenSphere Face Recognition model -> Convert to OpenVINO
+
+- Refer [my tutorial](https://github.com/yjwong1999/Yolov5_DeepSort_Face#retrain-opensphere-model) from another repo
+
 
