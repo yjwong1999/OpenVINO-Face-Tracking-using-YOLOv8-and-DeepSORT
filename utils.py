@@ -13,7 +13,7 @@ from ultralytics.yolo.utils.plotting import colors
 
 
 ##################################################3
-# utiliy function
+# utiliy function for OpenVINO YOLOv8 Detection
 ##################################################
 def plot_one_box(box:np.ndarray, img:np.ndarray, color:Tuple[int, int, int] = None, mask:np.ndarray = None, label:str = None, line_thickness:int = 5):
     """
@@ -238,49 +238,3 @@ def detect(image:np.ndarray, model:Model):
     input_hw = input_tensor.shape[2:]
     detections = postprocess(pred_boxes=boxes, input_hw=input_hw, orig_img=image, pred_masks=masks)
     return detections
-
-
-##################################################
-# inference
-##################################################
-label_map = {0: "face"}
-IMAGE_PATH = Path('demo/dummy.jpg')
-openvino_model_path = 'pretrained_models/yolov8_openvino/best.xml'
-device = 'CPU'
-core = Core()
-
-det_ov_model = core.read_model(openvino_model_path)
-if device != "CPU":
-    det_ov_model.reshape({0: [1, 3, 640, 640]})
-det_compiled_model = core.compile_model(det_ov_model, device)
-
-input_image = np.array(Image.open(IMAGE_PATH))
-detections = detect(input_image, det_compiled_model)[0]
-image_with_boxes = draw_results(detections, input_image, label_map)
-
-Image.fromarray(image_with_boxes).show()
-
- 
-# Reading the video from a file
-video = cv2.VideoCapture("demo/dataset_cam1.mp4")
- 
-# Checking whether the video has opened using the isOpened function
-if (video.isOpened() == False):
-    print("Error opening the video file")
- 
-# When the video has been opened successfully, we'll read each frame of the video using a loop
-while(video.isOpened()):
-    ret, frame = video.read()
-    if ret == True:
-        # inference
-        input_image = np.array(frame)
-        detections = detect(input_image, det_compiled_model)[0]
-        image_with_boxes = draw_results(detections, input_image, label_map)
-
-        cv2.imshow('Frame',image_with_boxes)
-        # Using waitKey to display each frame of the video for 1 ms
-        key = cv2.waitKey(1)
-        if key == ord('q'):
-            break
- 
-cv2.destroyAllWindows()
