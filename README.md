@@ -53,14 +53,7 @@ jupyter notebook
 
 ## Train OpenSphere Face Recognition model -> Convert to OpenVINO
 
-- Install my previous github repo
-```
-git clone https://github.com/yjwong1999/Yolov5_DeepSort_Face.git
-```
+- Refer [Face Recognition on SurvFace Dataset using OpenSphere](https://github.com/yjwong1999/opensphere)
 
-- Refer [my tutorial](https://github.com/yjwong1999/Yolov5_DeepSort_Face#retrain-opensphere-model) here
-```
-cd Yolov5_DeepSort_Face/Yolov5_DeepSort_Face
-<the rest follow the link above>
-```
+
 
