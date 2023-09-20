@@ -1,6 +1,3 @@
-[submodule "ultralytics"]
-	path = ultralytics
-	url = https://github.com/ultralytics/ultralytics.git
 [submodule "yolo_tracking"]
 	path = yolo_tracking
 	url = https://github.com/mikel-brostrom/yolo_tracking.git
