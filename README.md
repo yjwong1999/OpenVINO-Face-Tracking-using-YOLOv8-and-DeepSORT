@@ -55,5 +55,11 @@ jupyter notebook
 
 - Refer [Training your OpenSphere Face Recognition Model using QMUL_SurvFace or any Custom Dataset](https://github.com/yjwong1999/opensphere)
 
+## Tracking
+
+[issue](https://github.com/mikel-brostrom/yolo_tracking/issues/1071#issuecomment-1684865948)
+
+Please uninstall your ultralytics, use the owner de version
+
 
 

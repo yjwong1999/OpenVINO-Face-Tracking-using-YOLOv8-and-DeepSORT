@@ -90,8 +90,18 @@ Werkzeug==2.2.3
 zipp==3.15.0
 
 # for yolov8
-ultralytics==8.0.157
+ultralytics==8.0.157 # not used in tracking, tracking use a custom ultralytics by the users
 
 # openvino 2023 version
 openvino-dev==2023.0.2
 nncf==2.5.0
+
+# yolo_tracking
+# ultralytics==8.0.146 # better let the yolo_tracking install itself
+loguru==0.7.2
+gdown==4.7.1
+ftfy==6.1.1
+regex==2023.6.3
+filterpy==1.4.5
+lapx==0.5.4
+
