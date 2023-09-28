@@ -57,6 +57,26 @@ jupyter notebook
 
 ## Tracking
 
+- Create a conda environment for tracking, and activate it
+```
+conda create --name mcfdr python=3.8.10
+conda activate mcfdr 
+```
+
+- Goto yolo_tracking folder
+```
+cd yolo_tracking
+```
+
+- Install dependencies
+```
+# install pytorch
+pip3 install torch torchvision torchaudio --index-url https://download.pytorch.org/whl/cu118
+
+# install remaining requirements
+pip install -r requirements.txt
+```
+
 [issue](https://github.com/mikel-brostrom/yolo_tracking/issues/1071#issuecomment-1684865948)
 
 Please uninstall your ultralytics, use the owner de version
