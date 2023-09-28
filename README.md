@@ -69,6 +69,19 @@ pip3 install torch torchvision torchaudio --index-url https://download.pytorch.o
 pip3 install -r requirements.txt
 ```
 
+- Start deploy
+```
+python3 track.py
+        --yolo-model ../pretrained_models/face_detection/yolov8_openvino_model \
+        --reid-model ../pretrained_models/face_recognition/sfnet20_openvino_model \
+        --tracking-method strongsort \
+        --source source.streams \
+        --device 0 \
+        --half \
+        --save \
+        --save-id-crops
+```
+
 
 ## Known Issues
 [issue](https://github.com/mikel-brostrom/yolo_tracking/issues/1071#issuecomment-1684865948)
