@@ -88,7 +88,7 @@ This work was supported by Greatech Integration (M) Sdn Bhd with project number 
 5. [How to list available cameras OpenCV/Python](https://stackoverflow.com/a/62639343)
 6. [How to wget files from Google Drive](https://bcrf.biochem.wisc.edu/2021/02/05/download-google-drive-files-using-wget/)
 
-- I recommend to use ```ultralytics==8.0.146``` to train your YOLOv8 model for this repo, since [4] is based this version </br>
+- I recommend to use ```ultralytics==8.0.146``` to train your YOLOv8 model for this repo, since ref work [3] and [4] are modified based this version </br>
 - OpenSphere is used to train Face Recognition model </br>
 - This repo is heavily based on [3], with minor modifications </br>
 
