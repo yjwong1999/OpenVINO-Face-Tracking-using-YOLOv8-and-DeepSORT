@@ -84,10 +84,11 @@ This work was supported by Greatech Integration (M) Sdn Bhd with project number 
 1. [Yolov8](https://github.com/ultralytics/ultralytics) </br>
 2. [OpenSphere Face Recognition](https://github.com/ydwen/opensphere) </br>
 3. [Yolov8 + DeepSort for Object Detection and Tracking](https://github.com/mikel-brostrom/yolov8_tracking) </br>
-4. [How to list available cameras OpenCV/Python](https://stackoverflow.com/a/62639343)
-5. [How to wget files from Google Drive](https://bcrf.biochem.wisc.edu/2021/02/05/download-google-drive-files-using-wget/)
+4. [mikel-brostrom's ultralytic, which is used in ref work 3](https://github.com/mikel-brostrom/ultralytics)
+5. [How to list available cameras OpenCV/Python](https://stackoverflow.com/a/62639343)
+6. [How to wget files from Google Drive](https://bcrf.biochem.wisc.edu/2021/02/05/download-google-drive-files-using-wget/)
 
-- I recommend to use ```ultralytics==8.0.146``` to train your YOLOv8 model for this repo, since [3] specifically uses this version </br>
+- I recommend to use ```ultralytics==8.0.146``` to train your YOLOv8 model for this repo, since [4] is based this version </br>
 - OpenSphere is used to train Face Recognition model </br>
 - This repo is heavily based on [3], with minor modifications </br>
 
@@ -95,7 +96,7 @@ This work was supported by Greatech Integration (M) Sdn Bhd with project number 
 
 1. Main difference between my [yolo_tracking](https://github.com/yjwong1999/OpenVINO-Face-Tracking-using-YOLOv8-and-DeepSORT/tree/main/yolo_tracking) module and the [original](https://github.com/mikel-brostrom/yolov8_tracking) is: ```yolo_tracking/boxmot/trackers/strongsort/sort/tracker.py```, where [mine](https://github.com/yjwong1999/OpenVINO-Face-Tracking-using-YOLOv8-and-DeepSORT/blob/main/yolo_tracking/boxmot/trackers/strongsort/sort/tracker.py) will perform cosine distance with id bank before assinging ID
 
-2. Instead of using ```pip install ultralytics``` from the [original repo](https://github.com/ultralytics/ultralytics), I put my [modified ultralytics](https://github.com/yjwong1999/OpenVINO-Face-Tracking-using-YOLOv8-and-DeepSORT/tree/main/yolo_tracking/ultralytics) in: ```yolo_tracking/ultralytics```. My modified version is mainly to solve [this issue](https://github.com/ultralytics/ultralytics/issues/4493#issuecomment-1692142970)
+2. Instead of using ```pip install ultralytics``` from the [original repo](https://github.com/ultralytics/ultralytics), I put my [modified ultralytics](https://github.com/yjwong1999/OpenVINO-Face-Tracking-using-YOLOv8-and-DeepSORT/tree/main/yolo_tracking/ultralytics) in: ```yolo_tracking/ultralytics```. My version is based on ref work [4], where I modified ```ultralytics\ultralytics\data\loaders.py``` to solve [this issue](https://github.com/ultralytics/ultralytics/issues/4493#issuecomment-1692142970)
 
 ## Cite this repository
 
