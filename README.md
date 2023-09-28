@@ -96,7 +96,7 @@ This work was supported by Greatech Integration (M) Sdn Bhd with project number 
 
 1. Main difference between my [yolo_tracking](https://github.com/yjwong1999/OpenVINO-Face-Tracking-using-YOLOv8-and-DeepSORT/tree/main/yolo_tracking) module and the [original](https://github.com/mikel-brostrom/yolov8_tracking) is: ```yolo_tracking/boxmot/trackers/strongsort/sort/tracker.py```, where [mine](https://github.com/yjwong1999/OpenVINO-Face-Tracking-using-YOLOv8-and-DeepSORT/blob/main/yolo_tracking/boxmot/trackers/strongsort/sort/tracker.py) will perform cosine distance with id bank before assinging ID
 
-2. Instead of using ```pip install ultralytics``` from the [original repo](https://github.com/ultralytics/ultralytics), I put my [modified ultralytics](https://github.com/yjwong1999/OpenVINO-Face-Tracking-using-YOLOv8-and-DeepSORT/tree/main/yolo_tracking/ultralytics) in: ```yolo_tracking/ultralytics```. My version is based on ref work [4], where I modified ```ultralytics/ultralytics/data/loaders.py``` to solve [this issue](https://github.com/ultralytics/ultralytics/issues/4493#issuecomment-1692142970)
+2. Instead of using ```pip install ultralytics``` from the [original repo](https://github.com/ultralytics/ultralytics), I use my [modified ultralytics](https://github.com/yjwong1999/OpenVINO-Face-Tracking-using-YOLOv8-and-DeepSORT/tree/main/yolo_tracking/ultralytics) which is placed in: ```yolo_tracking/ultralytics```. My version is based on ref work [4], where I modified ```ultralytics/ultralytics/data/loaders.py``` to solve [this issue](https://github.com/ultralytics/ultralytics/issues/4493#issuecomment-1692142970)
 
 ## Cite this repository
 
