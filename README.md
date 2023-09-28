@@ -13,6 +13,7 @@ cd OpenVINO-Face-Tracking-using-YOLOv8-and-DeepSORT
 ```
 
 ## A. Train YOLOv8 Face Detection model -> Convert to OpenVINO
+[![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/drive/1bnRcWCp1Y6Jf7l2NORiZ4pDLvgSmDmZw?usp=sharing) </br>
 
 - Create a conda environment for YOLOv8, and activate it
 ```
@@ -38,11 +39,9 @@ jupyter notebook
 Notice:
 Please download the latest Jupyter Notebook (YOLOv8 Training for UFDD.ipynb.ipynb) from the provided Colab link.
 ```
-<click the Colab link below>
+<click the Colab link above>
 <run the codes step by step>
 ```
-[![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/drive/1bnRcWCp1Y6Jf7l2NORiZ4pDLvgSmDmZw?usp=sharing) </br>
-
 
 ## B. Train OpenSphere Face Recognition model -> Convert to OpenVINO
 
