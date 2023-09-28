@@ -71,6 +71,10 @@ pip3 install -r requirements.txt
 
 - Start deploy
 ```
+# find physical port connected to our device
+python3 find_port.py
+
+# start tracking based on source.streams
 python3 track.py \
 --yolo-model ../pretrained_models/face_detection/yolov8_openvino_model \
 --reid-model ../pretrained_models/face_recognition/sfnet20_openvino_model \
