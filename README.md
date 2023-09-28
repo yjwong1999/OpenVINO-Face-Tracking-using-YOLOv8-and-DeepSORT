@@ -28,8 +28,8 @@ conda activate yolov8
 
 - Install the dependencies
 ```
-pip install jupyter
-pip install -r requirements.txt
+pip3 install jupyter
+pip3 install -r requirements.txt
 ```
 
 - Method 1: Jupyter notebook
@@ -68,7 +68,7 @@ cd yolo_tracking
 pip3 install torch torchvision torchaudio --index-url https://download.pytorch.org/whl/cu118
 
 # install remaining requirements
-pip install -r requirements.txt
+pip3 install -r requirements.txt
 ```
 
 
