@@ -61,5 +61,9 @@ jupyter notebook
 
 Please uninstall your ultralytics, use the owner de version
 
+Main difference between my yolo_tracking and the original is:</br> 
+```yolo_tracking/boxmot/trackers/strongsort/sort/tracker.py```,</br>
+where mine will perform cosine distance with id bank before assinging ID
+
 
 
