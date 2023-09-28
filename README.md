@@ -77,6 +77,8 @@ pip3 install torch torchvision torchaudio --index-url https://download.pytorch.o
 pip install -r requirements.txt
 ```
 
+
+## Known Issues
 [issue](https://github.com/mikel-brostrom/yolo_tracking/issues/1071#issuecomment-1684865948)
 
 Please uninstall your ultralytics, use the owner de version
