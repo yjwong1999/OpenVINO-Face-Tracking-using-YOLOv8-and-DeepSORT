@@ -55,9 +55,9 @@ jupyter notebook
 
 - Refer [Training your OpenSphere Face Recognition Model using QMUL_SurvFace or any Custom Dataset](https://github.com/yjwong1999/opensphere)
 
-## Tracking
+## Multi Camera Face Detection and Tracking (MCFDR)
 
-- Create a conda environment for tracking, and activate it
+- Create a conda environment for MCFDR, and activate it
 ```
 conda create --name mcfdr python=3.8.10
 conda activate mcfdr 
