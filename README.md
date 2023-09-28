@@ -45,7 +45,7 @@ jupyter notebook
 <run the codes step by step>
 ```
 
-## B. rain OpenSphere Face Recognition model -> Convert to OpenVINO
+## B. Train OpenSphere Face Recognition model -> Convert to OpenVINO
 
 - Refer [Training your OpenSphere Face Recognition Model using QMUL_SurvFace or any Custom Dataset](https://github.com/yjwong1999/opensphere)
 
