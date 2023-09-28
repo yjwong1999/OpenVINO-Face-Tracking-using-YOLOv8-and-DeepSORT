@@ -12,7 +12,7 @@ git clone https://github.com/yjwong1999/OpenVINO-Face-Tracking-using-YOLOv8-and-
 cd OpenVINO-Face-Tracking-using-YOLOv8-and-DeepSORT
 ```
 
-## A. Train YOLOv8 Face Detection model -> Convert to OpenVINO
+### A. Train YOLOv8 Face Detection model -> Convert to OpenVINO
 [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/drive/1bnRcWCp1Y6Jf7l2NORiZ4pDLvgSmDmZw?usp=sharing) </br>
 
 - Create a conda environment for YOLOv8, and activate it
@@ -43,11 +43,11 @@ Please download the latest Jupyter Notebook (YOLOv8 Training for UFDD.ipynb.ipyn
 <run the codes step by step>
 ```
 
-## B. Train OpenSphere Face Recognition model -> Convert to OpenVINO
+### B. Train OpenSphere Face Recognition model -> Convert to OpenVINO
 
 - Refer [Training your OpenSphere Face Recognition Model using QMUL_SurvFace or any Custom Dataset](https://github.com/yjwong1999/opensphere)
 
-## C. Multi Camera Face Detection and Tracking (MCFDR)
+### C. Multi Camera Face Detection and Tracking (MCFDR)
 
 - Create a conda environment for MCFDR, and activate it
 ```
