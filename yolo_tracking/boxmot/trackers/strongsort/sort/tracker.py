@@ -10,6 +10,9 @@ from boxmot.trackers.strongsort.sort.track import Track
 from boxmot.utils.matching import chi2inv95
 
 ######################
+'''
+This part is to manage the ID
+'''
 import numpy as np
 from scipy.spatial.distance import cdist
 
