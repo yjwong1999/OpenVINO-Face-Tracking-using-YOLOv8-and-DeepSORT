@@ -90,7 +90,7 @@ python3 track.py \
 ## Known Issues
 [issue](https://github.com/mikel-brostrom/yolo_tracking/issues/1071#issuecomment-1684865948)
 
-Please uninstall your ultralytics, use the owner de version
+Please uninstall your ultralytics, the appropriate version will be downloaded automatically.
 
 
 
