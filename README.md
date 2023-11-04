@@ -49,6 +49,11 @@ Please download the latest Jupyter Notebook (YOLOv8 Training for UFDD.ipynb.ipyn
 
 ### C. Multi Camera Face Detection and Tracking (MCFDR)
 
+- Install git
+```
+sudo apt install git
+```
+
 - Create a conda environment for MCFDR, and activate it
 ```
 conda create --name mcfdr python=3.8.10
@@ -90,7 +95,11 @@ python3 track.py \
 ## Known Issues
 [issue](https://github.com/mikel-brostrom/yolo_tracking/issues/1071#issuecomment-1684865948)
 
-Please uninstall your ultralytics, the appropriate version will be downloaded automatically.
+Please uninstall your ultralytics, the appropriate version will be downloaded automatically.</br>
+Then:
+```
+pip install --no-cache "ultralytics @ git+https://github.com/mikel-brostrom/ultralytics.git"
+```
 
 
 
