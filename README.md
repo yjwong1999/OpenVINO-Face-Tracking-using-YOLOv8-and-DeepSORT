@@ -39,13 +39,16 @@ pip3 install torch torchvision torchaudio --index-url https://download.pytorch.o
 pip3 install -r requirements.txt
 ```
 
-- Start deploy
+- Find physical port(s) of the device which is connected to camera
 ```
 # find physical port connected to our device
 python3 find_port.py
+```
 
-# start tracking based on source.streams
-python3 track.py \
+- Start deploying
+```
+# tracking without geofencing
+python3 track_ori.py \
 --yolo-model ../pretrained_models/face_detection/yolov8_openvino_model \
 --reid-model ../pretrained_models/face_recognition/sfnet20_openvino_model \
 --tracking-method strongsort \
@@ -54,6 +57,18 @@ python3 track.py \
 --half \
 --save \
 --save-id-crops
+
+# tracking with geofencing
+python3 track.py \
+--yolo-model ../pretrained_models/face_detection/yolov8_openvino_model \
+--reid-model ../pretrained_models/face_recognition/sfnet20_openvino_model \
+--tracking-method strongsort \
+--source source.streams \
+--device 0 \
+--half \
+--save \
+--save-id-crops \
+--roi-xyxys "[0.3,0.0,0.6,0.5]"
 ```
 
 <details><summary>Retrain YOLOv8 & OpenSphere</summary>
