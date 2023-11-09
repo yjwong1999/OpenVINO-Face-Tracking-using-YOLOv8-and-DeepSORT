@@ -12,42 +12,7 @@ git clone https://github.com/yjwong1999/OpenVINO-Face-Tracking-using-YOLOv8-and-
 cd OpenVINO-Face-Tracking-using-YOLOv8-and-DeepSORT
 ```
 
-### A. Train YOLOv8 Face Detection model -> Convert to OpenVINO
-[![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/drive/1bnRcWCp1Y6Jf7l2NORiZ4pDLvgSmDmZw?usp=sharing) </br>
-
-- Create a conda environment for YOLOv8, and activate it
-```
-conda create --name yolov8 python=3.8.10
-conda activate yolov8 
-```
-
-- Install the dependencies
-```
-pip3 install jupyter
-pip3 install -r requirements.txt
-```
-
-- Method 1: Jupyter notebook
-```
-jupyter notebook
-<click the YOLOv8_Training_for_UFDD.ipynb>
-<run the codes step by step>
-```
-
-- Method 2: Colab
-  
-Notice:
-Please download the latest Jupyter Notebook (YOLOv8 Training for UFDD.ipynb.ipynb) from the provided Colab link.
-```
-<click the Colab link above>
-<run the codes step by step>
-```
-
-### B. Train OpenSphere Face Recognition model -> Convert to OpenVINO
-
-- Refer [Training your OpenSphere Face Recognition Model using QMUL_SurvFace or any Custom Dataset](https://github.com/yjwong1999/opensphere)
-
-### C. Multi Camera Face Detection and Tracking (MCFDR)
+### A. Multi Camera Face Detection and Tracking (MCFDR)
 
 - Install git
 ```
@@ -90,6 +55,45 @@ python3 track.py \
 --save \
 --save-id-crops
 ```
+
+<details><summary>Retrain YOLOv8 & OpenSphere</summary>
+
+### B. Train YOLOv8 Face Detection model -> Convert to OpenVINO
+[![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/drive/1bnRcWCp1Y6Jf7l2NORiZ4pDLvgSmDmZw?usp=sharing) </br>
+
+- Create a conda environment for YOLOv8, and activate it
+```
+conda create --name yolov8 python=3.8.10
+conda activate yolov8 
+```
+
+- Install the dependencies
+```
+pip3 install jupyter
+pip3 install -r requirements.txt
+```
+
+- Method 1: Jupyter notebook
+```
+jupyter notebook
+<click the YOLOv8_Training_for_UFDD.ipynb>
+<run the codes step by step>
+```
+
+- Method 2: Colab
+  
+Notice:
+Please download the latest Jupyter Notebook (YOLOv8 Training for UFDD.ipynb.ipynb) from the provided Colab link.
+```
+<click the Colab link above>
+<run the codes step by step>
+```
+
+### C. Train OpenSphere Face Recognition model -> Convert to OpenVINO
+
+- Refer [Training your OpenSphere Face Recognition Model using QMUL_SurvFace or any Custom Dataset](https://github.com/yjwong1999/opensphere)
+
+</details>
 
 
 ## Known Issues
