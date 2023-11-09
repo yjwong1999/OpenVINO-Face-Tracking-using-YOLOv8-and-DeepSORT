@@ -69,6 +69,10 @@ python3 track.py \
 --save \
 --save-id-crops \
 --roi-xyxys "[0.3,0.0,0.6,0.5]"
+
+# note that --roi-xyxys is/are the geofencing area [x1,y1,x2,y2], normalized to range 0 to 1
+# for single video streams  : --roi-xyxys "[x1,y1,x2,y2]"
+# for multiple video streams: --roi-xyxys "[x1,y1,x2,y2][x1,y1,x2,y2]..."
 ```
 
 <details><summary>Retrain YOLOv8 & OpenSphere</summary>
