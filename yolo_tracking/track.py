@@ -3,8 +3,11 @@
 import argparse
 from functools import partial
 from pathlib import Path
+import copy
 
 import torch
+import numpy as np
+import cv2
 
 from boxmot import TRACKERS
 from boxmot.tracker_zoo import create_tracker
@@ -22,6 +25,130 @@ from ultralytics.utils.plotting import save_one_box
 from examples.utils import write_mot_results
 
 
+##############################
+# For Geofencing + Counter
+##############################
+class Counter:
+    def __init__(self, x1, y1, x2, y2):
+        """
+        Initialize a counter
+
+        Args:
+            roi = (x1, x2, y1, y2)
+            x1, y1 ---------------
+            |                    |
+            |         ROI        |
+            |                    |
+            --------------- x2, y2
+        """
+        self.move_in = {}
+        self.move_out = {} # not implemented yet
+        self.count_in = 0
+        self.count_out = 0 # not implemented yet
+        self.buffer = {}
+        self.roi_x1 = x1
+        self.roi_y1 = y1
+        self.roi_x2 = x2
+        self.roi_y2 = y2
+        
+    def update(self, img_shape=None, pred_boxes=None):
+        """
+        Update the total number of objects move in/out the ROI
+
+        Args:
+            img_shape: the img shape
+            pred_boxes: the bbox of predicted obj
+        """
+
+        # Update Detect results
+        if pred_boxes:
+            for d in reversed(pred_boxes):
+                c, conf, id = int(d.cls), float(d.conf), None if d.id is None else int(d.id.item())
+                xyxy = d.xyxy.squeeze().cpu().detach().numpy()
+                x1, y1, x2, y2 = xyxy
+                
+                # conditions
+                condition_1 = x1 >= self.roi_x1 * img_shape[1]
+                condition_2 = x2 <= self.roi_x2 * img_shape[1]
+                condition_3 = y1 >= self.roi_y1 * img_shape[0]
+                condition_4 = y2 <= self.roi_y2 * img_shape[0]
+                
+                # if all conditions not met, add in self.buffer
+                conditions = condition_1 and condition_2 and condition_3 and condition_4
+                if (not conditions):
+                    self.buffer[id] = 1
+                elif conditions and (id not in self.move_in.keys()):
+                    self.count_in += 1
+                    self.move_in[id] = 1
+                    try:
+                        del self.buffer[id]
+                    except:
+                        pass
+
+# overwrite ultralytics.engine.predictor.BasePredictor
+def write_results(self, idx, results, batch):
+    """Write inference results to a file or directory."""
+    p, im, _ = batch
+    log_string = ''
+    if len(im.shape) == 3:
+        im = im[None]  # expand for batch dim
+    if self.source_type.webcam or self.source_type.from_img or self.source_type.tensor:  # batch_size >= 1
+        log_string += f'{idx}: '
+        frame = self.dataset.count
+    else:
+        frame = getattr(self.dataset, 'frame', 0)
+    self.data_path = p
+    self.txt_path = str(self.save_dir / 'labels' / p.stem) + ('' if self.dataset.mode == 'image' else f'_{frame}')
+    log_string += '%gx%g ' % im.shape[2:]  # print string
+    result = results[idx]
+    log_string += result.verbose()
+
+    result_boxes = copy.deepcopy(result.boxes)
+    if self.args.save or self.args.show:  # Add bbox to image
+        plot_args = {
+            'line_width': self.args.line_width,
+            'boxes': self.args.boxes,
+            'conf': self.args.show_conf,
+            'labels': self.args.show_labels}
+        if not self.args.retina_masks:
+            plot_args['im_gpu'] = im[idx]
+        self.plotted_img = result.plot(**plot_args)
+        
+    # update move in count
+    if self.counters is not None:
+        # update counters
+        self.counters[idx].update(self.plotted_img.shape, result_boxes)
+        
+        # get the roi bbox points
+        img_shape = self.plotted_img.shape
+        x1 = int(self.counters[idx].roi_x1 * img_shape[1])
+        y1 = int(self.counters[idx].roi_y1 * img_shape[0])
+        x2 = int(self.counters[idx].roi_x2 * img_shape[1])
+        y2 = int(self.counters[idx].roi_y2 * img_shape[0])
+        print(x1, y1, x2, y2)
+        
+        # draw roi
+        pts = [[x1,y1],[x1,y2],[x2,y2],[x2,y1]]
+        pts = np.array(pts, int)
+        pts = pts.reshape((-1, 1, 2))
+        self.plotted_img = cv2.polylines(self.plotted_img, [pts], True, (0,0,255), 5)
+        
+        # put text
+        cv2.putText(self.plotted_img,f'in: {self.counters[idx].count_in}', (int(self.plotted_img.shape[0]*0.35), int(self.plotted_img.shape[1]*0.5)), cv2.FONT_HERSHEY_SIMPLEX, 1.5, (255, 255, 0), 2, cv2.LINE_AA)
+    
+    # Write
+    if self.args.save_txt:
+        result.save_txt(f'{self.txt_path}.txt', save_conf=self.args.save_conf)
+    if self.args.save_crop:
+        result.save_crop(save_dir=self.save_dir / 'crops',
+                         file_name=self.data_path.stem + ('' if self.dataset.mode == 'image' else f'_{frame}'))
+
+    return log_string                        
+##############################
+# END SECTION
+##############################
+
+                   
 def on_predict_start(predictor, persist=False):
     """
     Initialize trackers for object tracking during prediction.
@@ -85,8 +212,8 @@ def run(args):
         line_width=args.line_width
     )
 
-    yolo.add_callback('on_predict_start', partial(on_predict_start, persist=True))
-
+    yolo.add_callback('on_predict_start', partial(on_predict_start, persist=True))    
+    
     if 'yolov8' not in str(args.yolo_model):
         # replace yolov8 model
         m = get_yolo_inferer(args.yolo_model)
@@ -100,6 +227,27 @@ def run(args):
     # store custom args in predictor
     yolo.predictor.custom_args = args
 
+
+    ##############################
+    # GEOFENCING + Counter
+    ##############################
+    yolo.predictor.counters = None
+    if args.roi_xyxys is not None:
+        yolo.predictor.counters = []
+        roi_xyxys = args.roi_xyxys.split('][')
+        for i in range(len(roi_xyxys)):
+            xyxy = roi_xyxys[i].replace('[', '').replace(']', '')
+            xyxy = xyxy.split(',')
+            xyxy = [float(item) for item in xyxy]
+            x1, y1, x2, y2  = xyxy
+            yolo.predictor.counters.append(Counter(x1, y1, x2, y2))
+            
+    import types
+    yolo.predictor.write_results = types.MethodType(write_results, yolo.predictor)
+    ##############################
+    # END SECTION
+    ##############################
+    
     for frame_idx, r in enumerate(results):
 
         if r.boxes.data.shape[1] == 7:
@@ -189,7 +337,9 @@ def parse_opt():
                         help='print results per frame')
     parser.add_argument('--vid_stride', default=1, type=int,
                         help='video frame-rate stride')
-
+    parser.add_argument('--roi-xyxys', type=str, default=None,
+                        help='x1y1x2y2 of RoI (in range 0 to 1), i.e.: [0.3,0.5,0.3,0.5] OR [0.3,0.5,0.3,0.5][0, 1, 0.5, 0.5]')
+                        
     opt = parser.parse_args()
     return opt
 
