@@ -55,56 +55,6 @@ STREAM_WARNING = """
             masks = r.masks  # Masks object for segment masks outputs
             probs = r.probs  # Class probabilities for classification outputs
 """
-
-class Counter:
-    def __init__(self, y_thresh = None, roi = None):
-        """
-        Initialize a counter
-
-        Args:
-            roi = (x1, x2, y1, y2)
-            x1, y1 ---------------
-            |                    |
-            |         ROI        |
-            |                    |
-            --------------- x2, y2
-        """
-        self.move_in = {}
-        self.move_out = {} # not implemented yet
-        self.count_in = 0
-        self.count_out = 0 # not implemented yet
-        self.buffer = {}
-        self.y_thresh = y_thresh
-        self.roi = roi # not implemented yet
-        
-    def update(self, pred_boxes=None):
-        """
-        Update the total number of objects move in/out the ROI
-
-        Args:
-            pred_boxes: the bbox of predicted obj
-        """
-
-        # Update Detect results
-        if pred_boxes:
-            for d in reversed(pred_boxes):
-                c, conf, id = int(d.cls), float(d.conf), None if d.id is None else int(d.id.item())
-                xyxy = d.xyxy.squeeze().cpu().detach().numpy()
-                x1, y1, x2, y2 = xyxy
-                
-                # going in but haven crossed line
-                print(y1, self.y_thresh, id)
-                if (y1 < self.y_thresh) and (id not in self.move_in.keys()):
-                    self.buffer[id] = 1
-                # going in and crossed line
-                elif (y1 >= self.y_thresh) and (id not in self.move_in.keys()):
-                    self.move_in[id] = 1
-                    self.count_in += 1
-                    try:
-                        del self.buffer[id]
-                    except:
-                        pass
-counter = Counter(y_thresh=150)
                 
 
 class BasePredictor:
@@ -227,12 +177,6 @@ class BasePredictor:
             if not self.args.retina_masks:
                 plot_args['im_gpu'] = im[idx]
             self.plotted_img = result.plot(**plot_args)
-            
-        # update move in count
-        counter.update(result_boxes)
-        counter.y_thresh = int(self.plotted_img.shape[0] * 0.55)
-        cv2.line(self.plotted_img, pt1=(0,counter.y_thresh), pt2=(self.plotted_img.shape[1],counter.y_thresh), color=(0,0,255), thickness=5)
-        cv2.putText(self.plotted_img,f'in: {counter.count_in}', (int(self.plotted_img.shape[0]*0.35), int(self.plotted_img.shape[1]*0.5)), cv2.FONT_HERSHEY_SIMPLEX, 1.5, (255, 255, 0), 2, cv2.LINE_AA)
         
         # Write
         if self.args.save_txt:
