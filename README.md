@@ -14,15 +14,15 @@ cd OpenVINO-Face-Tracking-using-YOLOv8-and-DeepSORT
 
 ### A. Multi Camera Face Detection and Tracking (MCFDR)
 
-- Install git
-```
-sudo apt install git
-```
-
 - Create a conda environment for MCFDR, and activate it
 ```
 conda create --name mcfdr python=3.8.10
 conda activate mcfdr 
+```
+
+- Install git
+```
+sudo apt install git
 ```
 
 - Goto yolo_tracking folder
