@@ -1,3 +1,4 @@
+import argparse
 import cv2
 import os
 import matplotlib as mpl
@@ -274,7 +275,12 @@ class Matcher:
         # Display the Matplotlib figure
         plt.show()
 
+# get root direectory from user
+parser = argparse.ArgumentParser()
+parser.add_argument('--root-dir', type=str, default='runs/track/exp/crops/0',
+                    help='the root directory that stores all pseudo ID folders')
+opt = parser.parse_args()
 
 matcher = Matcher(annot_filename="annotation.json")
-matcher.loop('runs/track/exp/crops/0')
+matcher.loop(opt.root_dir)
 matcher.save_annotations()
