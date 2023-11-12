@@ -82,7 +82,6 @@ class Matcher:
         for i in range(len(all_image_paths)):
             
             self.save_annotations()
-            print(self.processed_image_paths)
             
             # get 1st image path
             image_path1 = all_image_paths[i]
