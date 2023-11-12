@@ -82,23 +82,25 @@ class Matcher:
         for i in range(len(all_image_paths)):
             
             self.save_annotations()
+            print(self.processed_image_paths)
             
             # get 1st image path
             image_path1 = all_image_paths[i]
+
+            # if had been processed
+            if image_path1 in self.processed_image_paths:
+                continue
             
             # prompt this image
-            self.display_one_image(image_path1)
-            
-            # if not new ID (means have been proceseed)
+            self.display_one_image(image_path1)            
+
+            # if not new ID
             if not self.if_new_ID:
                 continue
                 
             # create a new ID, and store this image
             self.count_ID += 1
-            self.actual_IDs[self.count_ID] = [image_path1]
-            
-            # dont have to check this path again
-            self.processed_image_paths.append(image_path1)
+            self.actual_IDs[self.count_ID] = [image_path1]            
 
             # compare with 2nd image
             for j in range(i+1, len(all_image_paths)):
@@ -148,6 +150,7 @@ class Matcher:
         def aFace(event):
             print("this face acceptable")
             plt.close()
+            self.processed_image_paths.append(image_path) # dont have to check this path again
             self.if_new_ID = True
         
         btn1.on_clicked(aFace)
