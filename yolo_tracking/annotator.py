@@ -279,10 +279,18 @@ class Matcher:
 
 # get root direectory from user
 parser = argparse.ArgumentParser()
-parser.add_argument('--root-dir', type=str, default='runs/track/exp/crops/0',
+parser.add_argument('--root-dir', type=str, default='runs/track/exp/crops',
                     help='the root directory that stores all pseudo ID folders')
 opt = parser.parse_args()
 
+# our root directory
+root_dir = opt.root_dir
+sub_dirs = []
+for path in os.listdir(root_dir):
+    sub_dir = os.path.join(root_dir, path)
+    sub_dirs.append(sub_dir)
+
 matcher = Matcher(annot_filename="annotation.json")
-matcher.loop(opt.root_dir)
-matcher.save_annotations()
+for sub_dir in sub_dirs:
+    matcher.loop(sub_dir)
+    matcher.save_annotations()
