@@ -45,6 +45,15 @@ pip3 install -r requirements.txt
 python3 find_port.py
 ```
 
+- List down your video stream source(s) line by line
+```
+# inside source.streams
+source 1
+source 2
+source 3
+...
+```
+
 - Start deploying
 ```
 # tracking without geofencing
