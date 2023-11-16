@@ -43,7 +43,7 @@ class Matcher:
         return filename
         
         
-    def loop(self, root_dir):
+    def loop(self, root_dir, sample_num):
         '''
         root_dir
         ├── (ID 1)
@@ -73,7 +73,7 @@ class Matcher:
         all_image_paths = []
         for sub_dir in sub_dirs:
             paths = os.listdir(sub_dir)
-            paths = [os.path.join(sub_dir, path) for path in paths]
+            paths = [os.path.join(sub_dir, path) for path in paths][:sample_num]
             all_image_paths += paths
         
         #--------------------------------------------------------------------
@@ -281,10 +281,13 @@ class Matcher:
 parser = argparse.ArgumentParser()
 parser.add_argument('--root-dir', type=str, default='runs/track/exp/crops',
                     help='the root directory that stores all pseudo ID folders')
+parser.add_argument('--sample-num', type=int, default=5,
+                    help='number of images sampled from each pseudo-ID folder')
 opt = parser.parse_args()
 
 # our root directory
 root_dir = opt.root_dir
+sample_num = opt.sample_num
 sub_dirs = []
 for path in os.listdir(root_dir):
     sub_dir = os.path.join(root_dir, path)
@@ -292,5 +295,5 @@ for path in os.listdir(root_dir):
 
 matcher = Matcher(annot_filename="annotation.json")
 for sub_dir in sub_dirs:
-    matcher.loop(sub_dir)
+    matcher.loop(sub_dir, sample_num)
     matcher.save_annotations()
