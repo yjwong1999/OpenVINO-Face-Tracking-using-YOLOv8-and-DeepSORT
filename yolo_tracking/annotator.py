@@ -5,6 +5,7 @@ import matplotlib as mpl
 import matplotlib.pyplot as plt
 import numpy as np
 import json, copy
+import random
 
 from matplotlib.widgets import Button
 
@@ -72,8 +73,10 @@ class Matcher:
         # flatten to get all image paths
         all_image_paths = []
         for sub_dir in sub_dirs:
-            paths = os.listdir(sub_dir)
-            paths = [os.path.join(sub_dir, path) for path in paths][:sample_num]
+            paths = os.listdir(sub_dir) # get all paths in sub_dir
+            paths = [os.path.join(sub_dir, path) for path in paths] # join the sub_dir with paths
+            random.shuffle(paths) # shuffle
+            paths = paths[:sample_num] # extract N number of samples only
             all_image_paths += paths
         
         #--------------------------------------------------------------------
@@ -281,7 +284,7 @@ class Matcher:
 parser = argparse.ArgumentParser()
 parser.add_argument('--root-dir', type=str, default='runs/track/exp/crops',
                     help='the root directory that stores all pseudo ID folders')
-parser.add_argument('--sample-num', type=int, default=5,
+parser.add_argument('--sample-num', type=int, default=10,
                     help='number of images sampled from each pseudo-ID folder')
 opt = parser.parse_args()
 
