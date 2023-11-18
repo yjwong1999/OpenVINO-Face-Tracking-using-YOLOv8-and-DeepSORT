@@ -291,6 +291,11 @@ opt = parser.parse_args()
 # our root directory
 root_dir = opt.root_dir
 sample_num = opt.sample_num
+
+# validate
+assert os.path.isdir(root_dir), f'Directory "{root_dir}" does not available!'
+assert sample_num >= 5, f'argument --sample-num must be at least 5'
+
 sub_dirs = []
 for path in os.listdir(root_dir):
     sub_dir = os.path.join(root_dir, path)
