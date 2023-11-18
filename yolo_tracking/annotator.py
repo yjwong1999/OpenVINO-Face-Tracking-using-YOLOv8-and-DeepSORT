@@ -75,11 +75,12 @@ class Matcher:
         for sub_dir in sub_dirs:
             paths = os.listdir(sub_dir) # get all paths in sub_dir
             paths = [os.path.join(sub_dir, path) for path in paths] # join the sub_dir with paths
-            temp = paths[:3] # extract first 3 images, since these images are crucial for identification
-            paths = paths[3:] # remaining images will be randomly sampled
+            temp = copy.deepcopy(paths[:3]) # extract first 3 images, since these images are crucial for identification
+            paths = copy.deepcopy(paths[3:]) # remaining images will be randomly sampled
             random.shuffle(paths) # shuffle the remaining images
             paths = temp + paths # combine together
             paths = paths[:sample_num] # extract N number of samples only
+            paths = copy.deepcopy(paths)
             all_image_paths += paths
         
         #--------------------------------------------------------------------
