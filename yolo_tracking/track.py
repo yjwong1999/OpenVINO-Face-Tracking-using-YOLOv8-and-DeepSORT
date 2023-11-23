@@ -78,6 +78,7 @@ class Counter:
                 condition_4 = y_mid <= self.roi_y2 * img_shape[0]
                 within_roi = condition_1 and condition_2 and condition_3 and condition_4
                 
+                # update count
                 if within_roi:
                     self.buffer[id] = 1
                 elif (not within_roi) and (id in self.buffer.keys()):
