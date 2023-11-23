@@ -279,7 +279,7 @@ def run(args):
             xyxy = xyxy.split(',')
             xyxy = [float(item) for item in xyxy]
             x1, y1, x2, y2  = xyxy
-            yolo.predictor.counters.append(Counter(x1, y1, x2, y2))
+            yolo.predictor.counters.append(Counter(x1, y1, x2, y2, i+1))
             
     import types
     yolo.predictor.write_results = types.MethodType(write_results, yolo.predictor)
