@@ -65,7 +65,9 @@ class Counter:
         self.current_date = datetime.datetime.now().date()
         self.current_hour = datetime.datetime.now().hour
 
-        self.logfile = f'camera{str(self.idx).zfill(3)}_{self.current_date.strftime("%Y-%m-%d")}_count.txt'
+        self.logfile = f'log/camera{str(self.idx).zfill(3)}_{self.current_date.strftime("%Y-%m-%d")}_count.txt'
+        if not os.path.isdir('log'):
+            os.mkdir('log')
         if not os.path.isfile(self.logfile):
             with open(self.logfile, 'w') as f:
                 f.write('Hello, world! Start counting now')
