@@ -167,7 +167,6 @@ def write_results(self, idx, results, batch):
         y1 = int(self.counters[idx].roi_y1 * img_shape[0])
         x2 = int(self.counters[idx].roi_x2 * img_shape[1])
         y2 = int(self.counters[idx].roi_y2 * img_shape[0])
-        print(x1, y1, x2, y2)
         
         # draw roi
         pts = [[x1,y1],[x1,y2],[x2,y2],[x2,y1]]
