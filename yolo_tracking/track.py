@@ -51,7 +51,7 @@ class Counter:
 
         self.reset()
 
-    def reset():
+    def reset(self):
         self.move_in = {}
         self.move_out = {} # not implemented yet
         self.count_in = 0
