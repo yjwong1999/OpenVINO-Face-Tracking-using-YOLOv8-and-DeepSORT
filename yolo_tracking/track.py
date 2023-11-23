@@ -65,6 +65,9 @@ class Counter:
         self.current_hour = datetime.datetime.now().hour
 
         self.logfile = f'camera{str(self.idx).zfill(3)}_{self.current_date.strftime("%Y-%m-%d")}_count.txt'
+        if not os.path.isfile(self.logfile):
+            with open(self.logfile, 'w') as f:
+                f.write('Hello, world! Start counting now')
         
     def update(self, img_shape=None, pred_boxes=None):
         """
