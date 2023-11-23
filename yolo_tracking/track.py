@@ -4,6 +4,8 @@ import argparse
 from functools import partial
 from pathlib import Path
 import copy
+import datetime
+import time
 
 import torch
 import numpy as np
@@ -45,11 +47,15 @@ class Counter:
         self.move_out = {} # not implemented yet
         self.count_in = 0
         self.count_out = 0 # not implemented yet
-        self.buffer = {}
+        self.buffer = {} # to store id of ppl in RoI
+        
         self.roi_x1 = x1
         self.roi_y1 = y1
         self.roi_x2 = x2
         self.roi_y2 = y2
+
+        self.current_date = datetime.datetime.now().date()
+        self.current_hour = datetime.datetime.now().hour
         
     def update(self, img_shape=None, pred_boxes=None):
         """
@@ -85,7 +91,22 @@ class Counter:
                     self.count_in += 1
                     self.move_in[id] = 1
                     del self.buffer[id]
-                        
+
+    def log(self):
+        # Get the current date and time
+        now = datetime.datetime.now()
+
+        # Check if the current time is at the start of a new hour
+        if now.hour != self.current_hour:
+            # Print the current date and time
+            print(now.strftime("%Y-%m-%d %H:%M:%S"))
+            self.current_hour = now.hour
+
+        # Check if a new day has passed
+        if now.date() > self.current_date:
+            print("A new day has passed!")
+            self.current_date = now.date()
+            
 # overwrite ultralytics.engine.predictor.BasePredictor
 def write_results(self, idx, results, batch):
     """Write inference results to a file or directory."""
