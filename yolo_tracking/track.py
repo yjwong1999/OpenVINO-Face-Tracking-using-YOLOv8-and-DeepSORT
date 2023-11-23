@@ -31,7 +31,7 @@ from examples.utils import write_mot_results
 # For Geofencing + Counter
 ##############################
 class Counter:
-    def __init__(self, x1, y1, x2, y2):
+    def __init__(self, x1, y1, x2, y2, idx):
         """
         Initialize a counter
 
@@ -42,12 +42,15 @@ class Counter:
             |         ROI        |
             |                    |
             --------------- x2, y2
+
+            idx = which camera
         """
         
         self.roi_x1 = x1
         self.roi_y1 = y1
         self.roi_x2 = x2
         self.roi_y2 = y2
+        self.idx = idx
 
         self.reset()
 
@@ -61,7 +64,7 @@ class Counter:
         self.current_date = datetime.datetime.now().date()
         self.current_hour = datetime.datetime.now().hour
 
-        self.logfile = f'{self.current_date.strftime("%Y-%m-%d")}_count.txt'
+        self.logfile = f'camera{str(self.idx).zfill(3)}_{self.current_date.strftime("%Y-%m-%d")}_count.txt'
         
     def update(self, img_shape=None, pred_boxes=None):
         """
