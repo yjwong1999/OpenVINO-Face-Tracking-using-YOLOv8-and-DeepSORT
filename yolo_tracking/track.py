@@ -171,6 +171,9 @@ def write_results(self, idx, results, batch):
         
         # put text
         cv2.putText(self.plotted_img,f'in: {self.counters[idx].count_in}', (int(self.plotted_img.shape[0]*0.35), int(self.plotted_img.shape[1]*0.5)), cv2.FONT_HERSHEY_SIMPLEX, 1.5, (255, 255, 0), 2, cv2.LINE_AA)
+
+        # log
+        self.counters[idx].log()
     
     # Write
     if self.args.save_txt:
