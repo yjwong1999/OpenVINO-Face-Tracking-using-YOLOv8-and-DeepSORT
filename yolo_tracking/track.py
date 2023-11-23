@@ -70,7 +70,7 @@ class Counter:
             os.mkdir('log')
         if not os.path.isfile(self.logfile):
             with open(self.logfile, 'w') as f:
-                f.write('Hello, world! Start counting now')
+                f.write('Hello, world! Start counting now\n')
         
     def update(self, img_shape=None, pred_boxes=None):
         """
