@@ -61,7 +61,7 @@ class Counter:
         self.current_date = datetime.datetime.now().date()
         self.current_hour = datetime.datetime.now().hour
 
-        self.logfile = f'{self.current_date}_count.txt'
+        self.logfile = f'{self.current_date.strftime("%Y-%m-%d")}_count.txt'
         
     def update(self, img_shape=None, pred_boxes=None):
         """
