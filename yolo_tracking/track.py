@@ -66,26 +66,8 @@ class Counter:
                 c, conf, id = int(d.cls), float(d.conf), None if d.id is None else int(d.id.item())
                 xyxy = d.xyxy.squeeze().cpu().detach().numpy()
                 x1, y1, x2, y2 = xyxy
-                
-                '''
-                # conditions
-                condition_1 = x1 >= self.roi_x1 * img_shape[1]
-                condition_2 = x2 <= self.roi_x2 * img_shape[1]
-                condition_3 = y1 >= self.roi_y1 * img_shape[0]
-                condition_4 = y2 <= self.roi_y2 * img_shape[0]
-                                
-                # if all conditions not met, add in self.buffer
-                conditions = condition_1 and condition_2 and condition_3 and condition_4
-                if (not conditions):
-                    self.buffer[id] = 1
-                elif conditions and (id not in self.move_in.keys()):
-                    self.count_in += 1
-                    self.move_in[id] = 1
-                    try:
-                        del self.buffer[id]
-                    except:
-                        pass
-                '''
+
+                # centroid
                 x_mid = (x1 + x2) / 2
                 y_mid = (y1 + y2) / 2
                 
