@@ -67,6 +67,7 @@ class Counter:
                 xyxy = d.xyxy.squeeze().cpu().detach().numpy()
                 x1, y1, x2, y2 = xyxy
                 
+                '''
                 # conditions
                 condition_1 = x1 >= self.roi_x1 * img_shape[1]
                 condition_2 = x2 <= self.roi_x2 * img_shape[1]
@@ -84,7 +85,27 @@ class Counter:
                         del self.buffer[id]
                     except:
                         pass
-
+                '''
+                x_mid = (x1 + x2) / 2
+                y_mid = (y1 + y2) / 2
+                
+                # conditions
+                condition_1 = x_mid >= self.roi_x1 * img_shape[1]
+                condition_2 = x_mid <= self.roi_x2 * img_shape[1]
+                condition_3 = y_mid >= self.roi_y1 * img_shape[0]
+                condition_4 = y_mid <= self.roi_y2 * img_shape[0]
+                within_roi = condition_1 and condition_2 and condition_3 and condition_4
+                
+                if within_roi:
+                    self.buffer[id] = 1
+                elif (not within_roi) and (id not in self.move_in.keys()):
+                    self.count_in += 1
+                    self.move_in[id] = 1
+                    try:
+                        del self.buffer[id]
+                    except:
+                        pass
+                        
 # overwrite ultralytics.engine.predictor.BasePredictor
 def write_results(self, idx, results, batch):
     """Write inference results to a file or directory."""
