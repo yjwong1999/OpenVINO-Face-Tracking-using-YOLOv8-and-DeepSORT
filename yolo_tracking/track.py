@@ -67,7 +67,6 @@ class Counter:
                 xyxy = d.xyxy.squeeze().cpu().detach().numpy()
                 x1, y1, x2, y2 = xyxy
                 
-                '''
                 # conditions
                 condition_1 = x1 >= self.roi_x1 * img_shape[1]
                 condition_2 = x2 <= self.roi_x2 * img_shape[1]
@@ -85,20 +84,6 @@ class Counter:
                         del self.buffer[id]
                     except:
                         pass
-                '''
-                x_mid = (x1 + x2) / 2
-                y_mid = (y1 + y2) / 2
-                
-                # conditions
-                condition_1 = x_mid >= self.roi_x1 * img_shape[1]
-                condition_2 = x_mid <= self.roi_x2 * img_shape[1]
-                condition_3 = y_mid >= self.roi_y1 * img_shape[0]
-                condition_4 = y_mid <= self.roi_y2 * img_shape[0]
-                
-                # if conditions met, increment count
-                conditions = condition_1 and condition_2 and condition_3 and condition_4
-                if conditions:
-                    self.count_in += 1
 
 # overwrite ultralytics.engine.predictor.BasePredictor
 def write_results(self, idx, results, batch):
