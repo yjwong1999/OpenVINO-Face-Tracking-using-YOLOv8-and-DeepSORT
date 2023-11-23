@@ -93,8 +93,8 @@ class Counter:
                 y_mid = (y1 + y2) / 2
                 
                 # conditions
-                condition_1 = x_mid <= self.roi_x1 * img_shape[1]
-                condition_2 = x_mid >= self.roi_x2 * img_shape[1]
+                condition_1 = x_mid >= self.roi_x1 * img_shape[1]
+                condition_2 = x_mid <= self.roi_x2 * img_shape[1]
                 condition_3 = y_mid >= self.roi_y1 * img_shape[0]
                 condition_4 = y_mid <= self.roi_y2 * img_shape[0]
                 within_roi = condition_1 and condition_2 and condition_3 and condition_4
