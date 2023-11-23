@@ -98,13 +98,10 @@ class Counter:
                 
                 if within_roi:
                     self.buffer[id] = 1
-                elif (not within_roi) and (id not in self.move_in.keys()):
+                elif (not within_roi) and (id in self.buffer.keys()):
                     self.count_in += 1
                     self.move_in[id] = 1
-                    try:
-                        del self.buffer[id]
-                    except:
-                        pass
+                    del self.buffer[id]
                         
 # overwrite ultralytics.engine.predictor.BasePredictor
 def write_results(self, idx, results, batch):
