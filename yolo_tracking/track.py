@@ -36,26 +36,32 @@ class Counter:
         Initialize a counter
 
         Args:
-            roi = (x1, x2, y1, y2)
+            roi = (x1, x2, y1, y2) which have been normalized to [0,1] range
             x1, y1 ---------------
             |                    |
             |         ROI        |
             |                    |
             --------------- x2, y2
         """
-        self.move_in = {}
-        self.move_out = {} # not implemented yet
-        self.count_in = 0
-        self.count_out = 0 # not implemented yet
-        self.buffer = {} # to store id of ppl in RoI
         
         self.roi_x1 = x1
         self.roi_y1 = y1
         self.roi_x2 = x2
         self.roi_y2 = y2
 
+        self.reset()
+
+    def reset():
+        self.move_in = {}
+        self.move_out = {} # not implemented yet
+        self.count_in = 0
+        self.count_out = 0 # not implemented yet
+        self.buffer = {} # to store id of ppl in RoI        
+
         self.current_date = datetime.datetime.now().date()
         self.current_hour = datetime.datetime.now().hour
+
+        self.logfile = f'{self.current_date}_count.txt'
         
     def update(self, img_shape=None, pred_boxes=None):
         """
@@ -98,14 +104,15 @@ class Counter:
 
         # Check if the current time is at the start of a new hour
         if now.hour != self.current_hour:
-            # Print the current date and time
+            # update current hour
             print(now.strftime("%Y-%m-%d %H:%M:%S"))
             self.current_hour = now.hour
 
         # Check if a new day has passed
         if now.date() > self.current_date:
-            print("A new day has passed!")
+            # reset
             self.current_date = now.date()
+            self.reset()
             
 # overwrite ultralytics.engine.predictor.BasePredictor
 def write_results(self, idx, results, batch):
