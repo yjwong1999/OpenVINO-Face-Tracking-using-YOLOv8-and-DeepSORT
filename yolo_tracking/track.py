@@ -108,6 +108,10 @@ class Counter:
             print(now.strftime("%Y-%m-%d %H:%M:%S"))
             self.current_hour = now.hour
 
+            # log total count
+            with open(self.logfile, 'a') as f:
+                f.write(f'{datetime.datetime.now()} {self.count_in}\n')
+
         # Check if a new day has passed
         if now.date() > self.current_date:
             # reset
