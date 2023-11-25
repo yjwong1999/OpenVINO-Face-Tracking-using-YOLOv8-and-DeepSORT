@@ -9,73 +9,6 @@ from boxmot.trackers.strongsort.sort import iou_matching, linear_assignment
 from boxmot.trackers.strongsort.sort.track import Track
 from boxmot.utils.matching import chi2inv95
 
-######################
-import numpy as np
-from scipy.spatial.distance import cdist
-
-def cosine_distance(feat, all_feats):
-    return cdist(feat, all_feats, 'cosine')
-    
-'''
-def cosine_distance(a, b):
-    return 1 - np.dot(a, b) / (np.linalg.norm(a) * np.linalg.norm(b))
-
-# cos distance based on opensphere repo (not sure got bug ma)
-import torch.nn.functional as F 
-import torch   
-def cosine_distance(feats):
-    feats = F.normalize(feats, dim=1)
-    feats0 = feats[0, :]
-    feats1 = feats[1, :]
-    dist = 1 - torch.sum(feats0 * feats1, dim=-1)
-    return dist.tolist()
-'''   
-
-class IDLibrary:
-
-    def __init__(self):
-        self.all_feats = None
-        self._next_id = 0
-        
-    def update(self, feat):
-        """
-        Return the ID of the boxmot.trackers.strongsort.sort.detection.Detection.feat 
-        based on cos_dist
-        
-        If the cos_dist > 0.3, means this is a new ID
-        Else, return the existing ID
-        
-        Parameters
-        ----------
-        feat: features of detection (face)
-        """
-        # reshape to (1, -1) shape
-        feat = np.reshape(feat, (1, -1))
-        
-        # if this is the first ID/features
-        if self._next_id == 0: 
-            # add to records
-            self.all_feats = feat
-            self._next_id += 1
-            return self._next_id
-        
-        # check cosine distance of existing features and input feature
-        cos_dist = cosine_distance(self.all_feats, feat)
-        cos_dist = np.array(cos_dist)
-        
-        # if distance too far -> means new ID
-        if np.min(cos_dist) > 0.3:
-            # add to records
-            self.all_feats = np.concatenate((self.all_feats, feat), axis=0)
-            self._next_id  += 1
-            return self._next_id
-        else:
-            # np index start with 0, but our index start with 1, so we have to +1
-            return np.argmin(cos_dist) + 1
-
-id_library = IDLibrary()
-################
-
 class Tracker:
     """
     This is the multi-target tracker.
@@ -224,12 +157,11 @@ class Tracker:
 
     def _initiate_track(self, detection):
         # detection is boxmot.trackers.strongsort.sort.detection.Detection
-        _id = id_library.update(detection.feat)
 
         self.tracks.append(
             Track(
                 detection,
-                _id,
+                self._next_id,
                 self.n_init,
                 self.max_age,
                 self.ema_alpha,
