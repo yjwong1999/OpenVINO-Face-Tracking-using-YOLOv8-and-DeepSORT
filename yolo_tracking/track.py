@@ -100,6 +100,9 @@ class Counter:
                 within_roi = condition_1 and condition_2 and condition_3 and condition_4
                 
                 # update count
+                if id is None:
+                    return None # tracker will assign None as ID, if the track is not alive long enough
+                    
                 if within_roi:
                     self.buffer[id] = 1
                 elif (not within_roi) and (id in self.buffer.keys()):
