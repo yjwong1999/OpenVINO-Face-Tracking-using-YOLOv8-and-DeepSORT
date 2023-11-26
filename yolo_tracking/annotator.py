@@ -63,7 +63,7 @@ class Matcher:
         then we flatten to:
         alist = [img 1.1, img 1.2, img 2.1, img 2.2, .....]
         
-        then double for loop for mathcing
+        then nested for loop for mathcing
         '''
         
         # list all directoy in root_dir
