@@ -1,3 +1,5 @@
+# this is the stable track.py before adding the delete_buffer()
+
 # Mikel Broström 🔥 Yolo Tracking 🧾 AGPL-3.0 license
 
 import argparse
