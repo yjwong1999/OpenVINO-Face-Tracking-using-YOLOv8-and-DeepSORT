@@ -1,4 +1,6 @@
-# this is the stable track.py before adding the delete_buffer()
+# this is the stable track.py before adding:
+# clear_buffer()
+# buffer_in and buffer_out
 
 # Mikel Broström 🔥 Yolo Tracking 🧾 AGPL-3.0 license
 
