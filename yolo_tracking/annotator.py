@@ -72,7 +72,10 @@ class Matcher:
         
         # flatten to get all image paths
         all_image_paths = []
+        all_pseudo_ids  = []
+        current_id      = 0
         for sub_dir in sub_dirs:
+            # get image paths
             paths = os.listdir(sub_dir) # get all paths in sub_dir
             paths = [os.path.join(sub_dir, path) for path in paths] # join the sub_dir with paths
             temp = copy.deepcopy(paths[:3]) # extract first 3 images, since these images are crucial for identification
@@ -82,13 +85,27 @@ class Matcher:
             paths = paths[:sample_num] # extract N number of samples only
             paths = copy.deepcopy(paths)
             all_image_paths += paths
+
+            # get pseudo_ids
+            pseudo_ids = [current_id] * len(paths)
+            all_pseudo_ids += pseudo_ids
+            
         
         #--------------------------------------------------------------------
         # start looping
-        
+        skip = False # skip if not new id
+        previous_pseudo_id = None
         for i in range(len(all_image_paths)):
-            
+            # save annotations every iteration            
             self.save_annotations()
+
+            # get current id
+            current_pseudo_id = all_pseudo_ids[i]
+            if (previous_pseudo_id is not None) and skip:
+                if current_pseudo_id == previous_pseudo_id:
+                    continue
+                else:
+                    skip = False
             
             # get 1st image path
             image_path1 = all_image_paths[i]
@@ -102,6 +119,8 @@ class Matcher:
 
             # if not new ID
             if not self.if_new_ID:
+                skip = True
+                previous_pseudo_id = current_pseudo_id
                 continue
                 
             # create a new ID, and store this image
