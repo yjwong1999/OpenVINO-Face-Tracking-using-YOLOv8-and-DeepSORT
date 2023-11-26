@@ -52,15 +52,28 @@ class Counter:
         self.roi_x2 = x2
         self.roi_y2 = y2
         self.idx = idx
+        
+        self.steps = 0
 
         self.reset()
 
     def reset(self):
+        '''
+        Definition of IN and OUT
+        
+        IN -> the person has entered the room
+        OUT -> the person is in the geofencing zone, before entering the room
+        
+        buffer_in -> to store person who first appeared in the room
+        buffer_out -> to store person who first appeared in the geofencing zone, before entering
+        '''
         self.move_in = {}
         self.move_out = {} # not implemented yet
         self.count_in = 0
         self.count_out = 0 # not implemented yet
-        self.buffer = {} # to store id of ppl in RoI        
+        
+        self.buffer_out = {} # to store id of ppl that haven enter yet     
+        self.buffer_in = {}  # to store id of ppl that first appear inside
 
         self.current_date = datetime.datetime.now().date()
         self.current_hour = datetime.datetime.now().hour
@@ -71,6 +84,37 @@ class Counter:
         if not os.path.isfile(self.logfile):
             with open(self.logfile, 'w') as f:
                 f.write('Hello, world! Start counting now\n')
+                
+    def clear_buffer(self):
+        # increment steps
+        self.steps += 1
+
+        # every 900 steps (assuming 30fps, then is every 30s)
+        now = datetime.datetime.now()
+        if self.steps % 300:
+            # remove IDs in buffer_in 
+            remove_ids = []
+            for id, timestamp in self.buffer_in.items():
+                delta_time = now - timestamp
+                
+                # remove the id in buffer_id, if the last appearance is more than 30s
+                if delta_time.total_seconds() > 30:
+                    remove_ids.append(id)
+            
+            for id in remove_ids:
+                del self.buffer_in[id]
+                
+            # remove IDs in buffer_out
+            remove_ids = []
+            for id, timestamp in self.buffer_out.items():
+                delta_time = now - timestamp
+                
+                # remove the id in buffer_id, if the last appearance is more than 30s
+                if delta_time.total_seconds() > 30:
+                    remove_ids.append(id)
+            
+            for id in remove_ids:
+                del self.buffer_out[id]                
         
     def update(self, img_shape=None, pred_boxes=None):
         """
@@ -103,12 +147,19 @@ class Counter:
                 if id is None:
                     return None # tracker will assign None as ID, if the track is not alive long enough
                     
-                if within_roi:
-                    self.buffer[id] = 1
-                elif (not within_roi) and (id in self.buffer.keys()):
+                if (within_roi) and (id not in self.buffer_in.keys()):
+                    self.buffer_out[id] = datetime.datetime.now()
+                elif (within_roi) and (id in self.buffer_in.keys()):
+                    pass
+                elif (not within_roi) and (id not in self.buffer_out.keys()):
+                    self.buffer_in[id] = datetime.datetime.now()
+                elif (not within_roi) and (id in self.buffer_out.keys()):
                     self.count_in += 1
-                    self.move_in[id] = 1
-                    del self.buffer[id]
+                    self.move_in[id] = datetime.datetime.now()
+                    del self.buffer_out[id]
+        
+        # clear buffer
+        # self.clear_buffer()
 
     def log(self):
         # Get the current date and time
