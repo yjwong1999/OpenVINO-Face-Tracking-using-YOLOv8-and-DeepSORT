@@ -89,6 +89,7 @@ class Matcher:
             # get pseudo_ids
             pseudo_ids = [current_id] * len(paths)
             all_pseudo_ids += pseudo_ids
+            current_id += 1
             
         
         #--------------------------------------------------------------------
