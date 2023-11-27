@@ -78,10 +78,12 @@ class Matcher:
             # get image paths
             paths = os.listdir(sub_dir) # get all paths in sub_dir
             paths = [os.path.join(sub_dir, path) for path in paths] # join the sub_dir with paths
+            '''
             temp = copy.deepcopy(paths[:3]) # extract first 3 images, since these images are crucial for identification
             paths = copy.deepcopy(paths[3:]) # remaining images will be randomly sampled
             random.shuffle(paths) # shuffle the remaining images
             paths = temp + paths # combine together
+            '''
             paths = paths[:sample_num] # extract N number of samples only
             paths = copy.deepcopy(paths)
             all_image_paths += paths
@@ -104,6 +106,7 @@ class Matcher:
             current_pseudo_id = all_pseudo_ids[i]
             if (previous_pseudo_id is not None) and skip:
                 if current_pseudo_id == previous_pseudo_id:
+                    print('skip1')
                     continue
                 else:
                     skip = False
@@ -133,11 +136,12 @@ class Matcher:
             previous_pseudo_id_2 = None
             for j in range(i+1, len(all_image_paths)):
                 # get current id
-                current_pseudo_id_2 = all_pseudo_ids[i]
+                current_pseudo_id_2 = all_pseudo_ids[j]
 
                 # skip if not new pseudo id
                 if (previous_pseudo_id_2 is not None) and skip_2:
                     if current_pseudo_id_2 == previous_pseudo_id_2:
+                        print('skip2')
                         continue
                     else:
                         skip_2 = False
@@ -146,7 +150,7 @@ class Matcher:
                 image_path2 = all_image_paths[j]
                 self.display_two_images(image_path1, image_path2)
 
-                if self.if_new_ID:
+                if not self.if_new_ID:
                     previous_pseudo_id_2 = current_pseudo_id_2
                     skip_2 = True
                     continue
