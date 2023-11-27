@@ -117,7 +117,7 @@ class Matcher:
             # prompt this image
             self.display_one_image(image_path1)            
 
-            # if not new ID
+            # if current_pseudo_id is not new ID, skip the current_pseudo_id
             if not self.if_new_ID:
                 skip = True
                 previous_pseudo_id = current_pseudo_id
@@ -128,10 +128,27 @@ class Matcher:
             self.actual_IDs[self.count_ID] = [image_path1]            
 
             # compare with 2nd image
+            skip_2 = False
+            previous_pseudo_id_2 = None
             for j in range(i+1, len(all_image_paths)):
+                # get current id
+                current_pseudo_id_2 = all_pseudo_ids[i]
+
+                # skip if not new pseudo id
+                if (previous_pseudo_id_2 is not None) and skip_2:
+                    if current_pseudo_id_2 == previous_pseudo_id_2:
+                        continue
+                    else:
+                        skip_2 = False
+                
                 # get 2nd image path
                 image_path2 = all_image_paths[j]
                 self.display_two_images(image_path1, image_path2)
+
+                if self.if_new_ID:
+                    previous_pseudo_id_2 = current_pseudo_id_2
+                    skip_2 = True
+                    continue
 
                 self.save_annotations()
             
@@ -247,6 +264,8 @@ class Matcher:
 
         #--------------------------------------------------------------------
         #button operation start here
+
+        self.if_new_ID = False
         
         #Same face------------------------------------------------------------------------------------
         sFaceBtn = plt.axes(self.button_data[0]["position"])
@@ -256,6 +275,7 @@ class Matcher:
             plt.close()
             self.actual_IDs[self.count_ID].append(image_path2)
             self.processed_image_paths.append(image_path2) # dont have to check this path again           
+            self.if_new_ID = True
 
         btn1.on_clicked(sFace)
         
@@ -265,6 +285,7 @@ class Matcher:
         def dFace(event):
             print("Macam Not neh")
             plt.close()            
+            self.if_new_ID = False
 
         btn2.on_clicked(dFace)
 
@@ -275,7 +296,8 @@ class Matcher:
             print("too blur cannot la")
             plt.close()
             self.actual_IDs['blur'].append(image_path2)
-            self.processed_image_paths.append(image_path2) # dont have to check this path again           
+            self.processed_image_paths.append(image_path2) # dont have to check this path again    
+            self.if_new_ID = False
 
         btn3.on_clicked(bFace)
         
@@ -287,6 +309,7 @@ class Matcher:
             plt.close()
             self.actual_IDs['unrecognizable'].append(image_path2)
             self.processed_image_paths.append(image_path2) # dont have to check this path again
+            self.if_new_ID = False
          
         btn4.on_clicked(unRecog)
 
