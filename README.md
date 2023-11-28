@@ -1,4 +1,6 @@
-# OpenVINO-Face-Tracking-using-YOLOv8-and-DeepSORT 🛠️
+# OpenVINO-Face-Tracking-using-YOLOv8-and-DeepSORT 
+
+### (We are testing out the system in our testbed 🛠️ Please starred for more updates)
 
 ## Download the Repo
 
