@@ -4,7 +4,7 @@
 
 from drive_utils.sheetCreateEdit import spreadsheetCreation,spreadSheetEditor
 import os
-from datetime import datetime
+from datetime import datetime, timedelta
 
 class DriveHandler:
     def __init__(self):
@@ -13,13 +13,18 @@ class DriveHandler:
         self.cred_spread = r'drive_utils/credentials/serviceAcc.json'    # Credential.json file for service account 
         self.token = r'drive_utils/credentials/token.json'               # token.json file, keep it as it is as it will create itself if its null
         self.filePath = r'logfiles'                                      # file path to the parent folder of the text file
-        self.sheet_ID = 6868                                             # ID of the chart sheet in spreasheet, need to predefined
-        
-        currentYear  = datetime.now().year
-        currentMonth = datetime.now().month
-        self.masterFile = f"masterFile_{currentYear}/{currentMonth}"     # Name of the master sheet to record accumulated count each day
+        self.sheet_ID = 6868                                             # ID of the chart sheet in spreasheet, need to predefined        
         
     def post(self):
+        # get the masterfile name, to record accumulated count each day
+        currentYear  = datetime.now().year
+        currentMonth = datetime.now().month
+        currentDay   = datetime.now().day
+        if currentDay == 1:
+            currentYear  = (datetime.now() - timedelta(1)).year 
+            currentMonth = (datetime.now() - timedelta(1)).month            
+        masterFile = f"masterFile_{currentYear}/{currentMonth}"     # Name of the master sheet to record accumulated count each day
+        
         logfiles = sorted(os.listdir(self.filePath))
         for logfile in logfiles:
             fileName = logfile
@@ -41,11 +46,11 @@ class DriveHandler:
             sheetEditor.dfChart(str(fileName),self.sheet_ID,1,"hour",2)
 
             # if masterfile does not exist, it will create a new spreadsheet of masterfile, and make a new sheet to create chart
-            if sheetCreation.findSheet(self.masterFile) == False:
+            if sheetCreation.findSheet(masterFile) == False:
                 print("masterfile does not exist")
-                sheetCreation.createSheet(self.masterFile)
-                sheetEditor.dfChart(self.masterFile,self.sheet_ID,0,"day",1) #<----
+                sheetCreation.createSheet(masterFile)
+                sheetEditor.dfChart(masterFile,self.sheet_ID,0,"day",1) #<----
             
             # Append the accumulated count to the masterfile
-            sheetEditor.dfAppend(self.masterFile)
+            sheetEditor.dfAppend(masterFile)
             print(f"write to {fileName}")    
