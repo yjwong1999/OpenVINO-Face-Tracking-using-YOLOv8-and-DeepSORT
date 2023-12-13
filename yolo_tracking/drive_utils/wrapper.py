@@ -12,7 +12,7 @@ class DriveHandler:
         self.cred_drive = r'drive_utils/credentials/Aouth2.json'         # Credential.json file for aouth 2.0 
         self.cred_spread = r'drive_utils/credentials/serviceAcc.json'    # Credential.json file for service account 
         self.token = r'drive_utils/credentials/token.json'               # token.json file, keep it as it is as it will create itself if its null
-        self.filePath = r'logfiles'                                      # file path to the parent folder of the text file
+        self.filePath = r'log'                                           # file path to the parent folder of the text file
         self.sheet_ID = 6868                                             # ID of the chart sheet in spreasheet, need to predefined        
         
     def post(self):
