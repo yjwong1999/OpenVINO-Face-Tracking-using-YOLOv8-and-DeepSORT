@@ -37,6 +37,10 @@ cd yolo_tracking
 # install pytorch
 pip3 install torch torchvision torchaudio --index-url https://download.pytorch.org/whl/cu118
 
+# google api for drive upload
+pip3 install google-api-python-client==2.111.0
+pip3 install gspread==5.12.2
+
 # install remaining requirements
 pip3 install -r requirements.txt
 ```
