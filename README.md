@@ -40,6 +40,7 @@ pip3 install torch torchvision torchaudio --index-url https://download.pytorch.o
 # google api for drive upload
 pip3 install google-api-python-client==2.111.0
 pip3 install gspread==5.12.2
+pip3 install oauth2client==4.1.3
 
 # install remaining requirements
 pip3 install -r requirements.txt
