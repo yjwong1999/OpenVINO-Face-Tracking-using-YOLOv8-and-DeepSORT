@@ -27,6 +27,7 @@ from ultralytics.utils.plotting import save_one_box
 
 from examples.utils import write_mot_results
 
+from drive_utils.wrapper import DriveHandler
 
 ##############################
 # For Geofencing + Counter
@@ -55,6 +56,8 @@ class Counter:
         
         self.steps = 0
 
+        self.drive_handler = DriveHandler()
+
         self.reset()
 
     def reset(self):
@@ -78,6 +81,7 @@ class Counter:
         self.current_date = datetime.datetime.now().date()
         self.current_hour = datetime.datetime.now().hour
 
+        # create new logfile at local
         self.logfile = f'log/camera{str(self.idx).zfill(3)}_{self.current_date.strftime("%Y-%m-%d")}_count.txt'
         if not os.path.isdir('log'):
             os.mkdir('log')
@@ -85,6 +89,9 @@ class Counter:
             with open(self.logfile, 'w') as f:
                 # f.write('Hello, world! Start counting now\n')
                 pass
+
+        # update ytd data to google drive
+        self.drive_handler.post()
                 
     def clear_buffer(self):
         # increment steps
