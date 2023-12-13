@@ -94,7 +94,7 @@ class Counter:
         try:
             self.drive_handler.post()
         except:
-            pass
+            print('Google API daily quota reached. Will upload tomorrow after quota renewed')
                 
     def clear_buffer(self):
         # increment steps
