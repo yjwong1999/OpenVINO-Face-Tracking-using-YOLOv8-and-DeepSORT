@@ -91,7 +91,10 @@ class Counter:
                 pass
 
         # update ytd data to google drive
-        self.drive_handler.post()
+        try:
+            self.drive_handler.post()
+        except:
+            pass
                 
     def clear_buffer(self):
         # increment steps
