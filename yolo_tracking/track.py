@@ -83,7 +83,8 @@ class Counter:
             os.mkdir('log')
         if not os.path.isfile(self.logfile):
             with open(self.logfile, 'w') as f:
-                f.write('Hello, world! Start counting now\n')
+                # f.write('Hello, world! Start counting now\n')
+                pass
                 
     def clear_buffer(self):
         # increment steps
