@@ -433,6 +433,7 @@ class spreadSheetEditor:
             date        = worksheet.row_values(length-1)[0]
             latestCount = worksheet.row_values(length)[2]
         except:
+            date        = worksheet.row_values(1)[0]
             latestCount = 0
         # combine the data
         latestData = [date, latestCount]
