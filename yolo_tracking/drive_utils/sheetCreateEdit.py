@@ -429,7 +429,6 @@ class spreadSheetEditor:
         worksheet   = spreadsheet.sheet1        
         try:
             length = len(worksheet.get_all_values())
-            print(length)
             date        = worksheet.row_values(length-1)[0]
             latestCount = worksheet.row_values(length)[2]
         except:
