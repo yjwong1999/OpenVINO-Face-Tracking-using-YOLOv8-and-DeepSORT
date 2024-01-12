@@ -426,9 +426,14 @@ class spreadSheetEditor:
     def dfAppend(self,master_dfName):
         # Open individual file and get last 2 row data
         spreadsheet = self.client.open(self.sheet_name)
-        worksheet   = spreadsheet.sheet1
-        date        = worksheet.row_values(24)[0]
-        latestCount = worksheet.row_values(25)[2]
+        worksheet   = spreadsheet.sheet1        
+        try:
+            length = len(worksheet.get_all_values())
+            print(length)
+            date        = worksheet.row_values(length-1)[0]
+            latestCount = worksheet.row_values(length)[2]
+        except:
+            latestCount = 0
         # combine the data
         latestData = [date, latestCount]
         
