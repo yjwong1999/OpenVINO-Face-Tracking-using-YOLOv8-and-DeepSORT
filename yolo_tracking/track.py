@@ -93,7 +93,8 @@ class Counter:
         else:
             # if the logfile existed, means our code has been interrupted and restarted
             # fill in the missing values between this duration
-            self.fill_missing()
+            # read back the last count
+            self.resume()
 
         # update ytd data to google drive
         try:
@@ -102,7 +103,7 @@ class Counter:
         except:
             print('Google API daily quota reached. Will upload tomorrow after quota renewed')
 
-    def fill_missing(self):
+    def resume(self):
         df = pd.read_csv(self.logfile,delimiter = ' ',header = None, engine = 'python')
         df.columns = ['Date','Time','Count']
         df_hr = pd.to_datetime(df['Time'].to_list(),format='%H:%M:%S.%f').hour  
@@ -123,6 +124,9 @@ class Counter:
                     datetimeInfo = datetime.datetime.combine(datetime.datetime.today().date(),missTime)
                     f.write(f'{datetimeInfo} {lastCount}\n')
                     print("written")
+                    
+        # update self.count_in = lastCount (before system interrupted and restart)
+        self.count_in = lastCount            
                                 
     def clear_buffer(self):
         # increment steps
