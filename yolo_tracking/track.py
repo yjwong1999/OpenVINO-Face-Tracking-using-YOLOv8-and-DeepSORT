@@ -86,6 +86,8 @@ class Counter:
         self.logfile = f'log/camera{str(self.idx).zfill(3)}_{self.current_date.strftime("%Y-%m-%d")}_count.txt'
         if not os.path.isdir('log'):
             os.mkdir('log')
+
+        resume = False # are we re-running the code due to interruption
         if not os.path.isfile(self.logfile):
             with open(self.logfile, 'w') as f:
                 # this will create an empty logile
@@ -94,14 +96,16 @@ class Counter:
             # if the logfile existed, means our code has been interrupted and restarted
             # fill in the missing values between this duration
             # read back the last count
+            resume = True
             self.resume()
 
         # update ytd data to google drive
-        try:
-            self.drive_handler.post()
-            pass
-        except:
-            print('Google API daily quota reached. Will upload tomorrow after quota renewed')
+        if not resume:
+            try:
+                self.drive_handler.post()
+                pass
+            except:
+                print('Google API daily quota reached. Will upload tomorrow after quota renewed')
 
     def resume(self):
         df = pd.read_csv(self.logfile,delimiter = ' ',header = None, engine = 'python')
