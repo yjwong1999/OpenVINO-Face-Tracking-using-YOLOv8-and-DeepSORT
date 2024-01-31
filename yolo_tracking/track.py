@@ -11,6 +11,7 @@ import torch
 import numpy as np
 import cv2
 import os
+import pandas as pd
 
 from boxmot import TRACKERS
 from boxmot.tracker_zoo import create_tracker
@@ -87,8 +88,12 @@ class Counter:
             os.mkdir('log')
         if not os.path.isfile(self.logfile):
             with open(self.logfile, 'w') as f:
-                # f.write('Hello, world! Start counting now\n')
+                # this will create an empty logile
                 pass
+        else:
+            # if the logfile existed, means our code has been interrupted and restarted
+            # fill in the missing values between this duration
+            self.fill_missing()
 
         # update ytd data to google drive
         try:
@@ -96,7 +101,29 @@ class Counter:
             pass
         except:
             print('Google API daily quota reached. Will upload tomorrow after quota renewed')
-                
+
+    def fill_missing(self):
+        df = pd.read_csv(self.logfile,delimiter = ' ',header = None, engine = 'python')
+        df.columns = ['Date','Time','Count']
+        df_hr = pd.to_datetime(df['Time'].to_list(),format='%H:%M:%S.%f').hour  
+        num_rows , _ = df.shape
+    
+        # print(f"the number of rows is {num_rows}")
+        # print(df_hr[-1])
+        # print(self.current_hour)
+    
+        if num_rows < self.current_hour-1:
+            print("filling missing values")
+            with open (self.logfile,'a') as f:
+                missHr = self.current_hour-df_hr[-1]
+                lastCount = int(df.iloc[-1]['Count'])
+                                        
+                for i in range(missHr):
+                    missTime = datetime.time(df_hr[num_rows-1]+i+1,0,0,1)
+                    datetimeInfo = datetime.datetime.combine(datetime.datetime.today().date(),missTime)
+                    f.write(f'{datetimeInfo} {lastCount}\n')
+                    print("written")
+                                
     def clear_buffer(self):
         # increment steps
         self.steps += 1
