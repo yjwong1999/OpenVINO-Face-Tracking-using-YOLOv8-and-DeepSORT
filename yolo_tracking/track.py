@@ -126,6 +126,7 @@ class Counter:
                     print("written")
                     
         # update self.count_in = lastCount (before system interrupted and restart)
+        lastCount = int(df.iloc[-1]['Count'])
         self.count_in = lastCount            
                                 
     def clear_buffer(self):
