@@ -117,10 +117,10 @@ class Counter:
         # print(df_hr[-1])
         # print(self.current_hour)
     
-        if num_rows < self.current_hour-1:
+        if num_rows < self.current_hour:
             print("filling missing values")
             with open (self.logfile,'a') as f:
-                missHr = self.current_hour-df_hr[-1]
+                missHr = self.current_hour - df_hr[-1]
                 lastCount = int(df.iloc[-1]['Count'])
                                         
                 for i in range(missHr):
