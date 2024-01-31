@@ -97,7 +97,7 @@ class Counter:
 
         # update ytd data to google drive
         try:
-            #self.drive_handler.post()
+            self.drive_handler.post()
             pass
         except:
             print('Google API daily quota reached. Will upload tomorrow after quota renewed')
