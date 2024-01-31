@@ -92,7 +92,8 @@ class Counter:
 
         # update ytd data to google drive
         try:
-            self.drive_handler.post()
+            #self.drive_handler.post()
+            pass
         except:
             print('Google API daily quota reached. Will upload tomorrow after quota renewed')
                 
@@ -240,7 +241,20 @@ def write_results(self, idx, results, batch):
         self.plotted_img = cv2.polylines(self.plotted_img, [pts], True, (0,0,255), 5)
         
         # put text
-        cv2.putText(self.plotted_img,f'in: {self.counters[idx].count_in}', (int(self.plotted_img.shape[0]*0.35), int(self.plotted_img.shape[1]*0.5)), cv2.FONT_HERSHEY_SIMPLEX, 1.5, (255, 255, 0), 2, cv2.LINE_AA)
+        text = f'in: {self.counters[idx].count_in}'
+        font = cv2.FONT_HERSHEY_SIMPLEX
+        font_scale = int(self.plotted_img.shape[0] * 0.002)
+        font_thickness = 2
+        origin = (int(self.plotted_img.shape[0]*0.35), int(self.plotted_img.shape[1]*0.5))
+        x, y = origin
+        text_color = (255, 255, 255)
+        text_color_bg = (0, 0, 0)
+        
+        text_size, _ = cv2.getTextSize(text, font, font_scale, font_thickness)
+        text_w, text_h = text_size
+        
+        cv2.rectangle(self.plotted_img, origin, (x + text_w, y + text_h), text_color_bg, -1)
+        cv2.putText(self.plotted_img,text, (x, y + text_h + font_scale - 1), font, font_scale, text_color, font_thickness, cv2.LINE_AA)
 
         # log
         self.counters[idx].log()
