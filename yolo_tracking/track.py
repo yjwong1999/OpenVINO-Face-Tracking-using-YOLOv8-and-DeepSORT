@@ -103,9 +103,13 @@ class Counter:
         # if this file existed, means our code has been interrupted
         # now we are restarting the code and resume today counting
         else:
+            # fill in the missing values between the interrupted duration
+            # and read back the last count            
             self.resume()
 
     def resume(self):
+        # fill in the missing values between the interrupted duration
+        # and read back the last count        
         df = pd.read_csv(self.logfile,delimiter = ' ',header = None, engine = 'python')
         df.columns = ['Date','Time','Count']
         df_hr = pd.to_datetime(df['Time'].to_list(),format='%H:%M:%S.%f').hour  
