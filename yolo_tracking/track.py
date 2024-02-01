@@ -87,25 +87,23 @@ class Counter:
         if not os.path.isdir('log'):
             os.mkdir('log')
 
-        resume = False # are we re-running the code due to interruption
+        # if this is a new logfile, means we are on the next day
         if not os.path.isfile(self.logfile):
-            with open(self.logfile, 'w') as f:
-                # this will create an empty logile
-                pass
-        else:
-            # if the logfile existed, means our code has been interrupted and restarted
-            # fill in the missing values between this duration
-            # read back the last count
-            resume = True
-            self.resume()
-
-        # update ytd data to google drive
-        if not resume:
+            # update data until yesterday to google drive
             try:
                 self.drive_handler.post()
                 pass
             except:
                 print('Google API daily quota reached. Will upload tomorrow after quota renewed')
+                
+            # create new logfile for today
+            with open(self.logfile, 'w') as f:
+                # this will create an empty logile
+                pass  
+        # if this file existed, means our code has been interrupted
+        # now we are restarting the code and resume today counting
+        else:
+            self.resume()
 
     def resume(self):
         df = pd.read_csv(self.logfile,delimiter = ' ',header = None, engine = 'python')
