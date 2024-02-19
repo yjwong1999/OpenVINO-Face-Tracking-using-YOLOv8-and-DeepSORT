@@ -93,8 +93,8 @@ class Counter:
             try:
                 self.drive_handler.post()
                 pass
-            except:
-                print('Google API daily quota reached. Will upload tomorrow after quota renewed')
+            except Exception as e:
+                print(e)
                 
             # create new logfile for today
             with open(self.logfile, 'w') as f:
