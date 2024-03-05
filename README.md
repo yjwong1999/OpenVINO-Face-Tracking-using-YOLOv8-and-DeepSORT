@@ -134,14 +134,7 @@ Please download the latest Jupyter Notebook (YOLOv8 Training for UFDD.ipynb.ipyn
 
 
 ## Known Issues
-[issue](https://github.com/mikel-brostrom/yolo_tracking/issues/1071#issuecomment-1684865948)
-
-Please uninstall your ultralytics, the appropriate version will be downloaded automatically.</br>
-Then:
-```
-pip install --no-cache "ultralytics @ git+https://github.com/mikel-brostrom/ultralytics.git"
-```
-
+Please check this [link](https://github.com/yjwong1999/OpenVINO-Face-Tracking-using-YOLOv8-and-DeepSORT/blob/main/KnownIssue.md)
 
 
 ## Acknowledgement
