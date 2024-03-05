@@ -104,6 +104,9 @@ class ReIDDetectMultiBackend(nn.Module):
                 else ["CPUExecutionProvider"]
             )
             self.session = onnxruntime.InferenceSession(str(w), providers=providers)
+            input_shape = self.session.get_inputs()[0].shape
+            self.wh_input = (input_shape[2], input_shape[3])
+            
         elif self.engine:  # TensorRT
             LOGGER.info(f"Loading {w} for TensorRT inference...")
             tr.check_packages(("nvidia-tensorrt",))
