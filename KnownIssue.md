@@ -29,3 +29,10 @@ pip install typing-extensions==4.7.1
 # Dependencies for onnx runtime
 pip install onnxruntime=1.16
 ```
+
+### 5. How to export custom ReID models (.pt format) to TorchScript, ONNX, OpenVINO and TensorRT
+Solution: Use the following [code](https://github.com/mikel-brostrom/yolo_tracking/wiki/ReID-multi-framework-model-export)
+```
+cd yolo_tracking
+python3 boxmot/appearance/reid_export.py --weights <path/to/your/model.pt> --include torchscript onnx openvino engine --device 0 --batch-size <max_num_expected_objects> --dynamic
+```
