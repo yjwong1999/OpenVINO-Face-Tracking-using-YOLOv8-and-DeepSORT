@@ -39,3 +39,6 @@ python3 boxmot/appearance/reid_export.py --weights <path/to/your/model.pt> --inc
 
 ### 6. How to export OpenSphere model into ONNX, OpenVINO format
 Solution: Refer OpenSphere [export guide](https://github.com/yjwong1999/opensphere/blob/main/README.md#export-opensphere-model-to-other-format-for-future-usage)
+```
+(make sure you do it on another conda env, to prevent version issue)
+```
