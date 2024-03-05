@@ -36,3 +36,6 @@ Solution: Use the following [code](https://github.com/mikel-brostrom/yolo_tracki
 cd yolo_tracking
 python3 boxmot/appearance/reid_export.py --weights <path/to/your/model.pt> --include torchscript onnx openvino engine --device 0 --batch-size <max_num_expected_objects> --dynamic
 ```
+
+### 6. How to export OpenSphere model into ONNX, OpenVINO format
+Solution: Refer OpenSphere [export guide](https://github.com/yjwong1999/opensphere/blob/main/README.md#export-opensphere-model-to-other-format-for-future-usage)
