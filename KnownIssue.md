@@ -1,5 +1,5 @@
 ### 1. AttributeError: 'NoneType' object has no attribute 'groups'
-Solution: [gdown version](https://github.com/wkentaro/gdown/issues/291#issuecomment-1885784876)
+Solution: [gdown version](https://github.com/mikel-brostrom/yolo_tracking/issues/1248#issuecomment-1889563576)
 ```
 pip install gdown==4.6.1
 ```
