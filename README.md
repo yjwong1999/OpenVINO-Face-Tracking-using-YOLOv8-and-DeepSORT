@@ -45,6 +45,7 @@ pip3 install oauth2client==4.1.3
 
 # install remaining requirements
 pip3 install -r requirements.txt
+pip install gdown==4.6.1
 ```
 
 - Find physical port(s) of the device which is connected to camera
