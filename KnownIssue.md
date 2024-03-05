@@ -1,8 +1,14 @@
 ### 1. Unsupported 'dets' input type '<class 'ultralytics.engine.results.Boxes'>', valid format is np.ndarray
 Solution: [please uninstall ultralytics that you have manually downloaded](https://github.com/mikel-brostrom/yolo_tracking/issues/1071#issuecomment-1684865948)
+```
+pip uninstall ultralytics
+```
 
 ### 2. Any ultralytics module issue
 Solution: [please uninstall ultralytics that you have manually downloaded](https://github.com/mikel-brostrom/yolo_tracking/issues/1071#issuecomment-1684865948)
+```
+pip uninstall ultralytics
+```
 
 ### 2. AttributeError: 'NoneType' object has no attribute 'groups'
 Solution: [gdown version](https://github.com/mikel-brostrom/yolo_tracking/issues/1248#issuecomment-1889563576)
