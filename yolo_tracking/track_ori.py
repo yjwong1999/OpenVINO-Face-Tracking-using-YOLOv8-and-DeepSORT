@@ -185,7 +185,7 @@ def parse_opt():
                         help='The line width of the bounding boxes. If None, it is scaled to the image size.')
     parser.add_argument('--per-class', default=False, action='store_true',
                         help='not mix up classes when tracking')
-    parser.add_argument('--verbose', default=True, action='store_true',
+    parser.add_argument('--verbose', default=False, action='store_true',
                         help='print results per frame')
     parser.add_argument('--vid_stride', default=1, type=int,
                         help='video frame-rate stride')
