@@ -21,7 +21,7 @@ Solution: [onnx and onnx runtime version should match](https://onnxruntime.ai/do
 Note that you may need to check protobuf version also
 ```
 (EXAMPLE)
-# Dependencies for onnx
+# Dependencies for onnx (usually i will do this in a separate conda env)
 pip install onnx==1.14.1
 pip install protobuf==4.24.4
 pip install typing-extensions==4.7.1
