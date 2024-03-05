@@ -1,3 +1,7 @@
+# Known Issues and How to Fix Them
+
+This is a compiled list of potential issues that you may encounter. If your error/issue does not appear here, please refer to the official [yolo_tracking repo](https://github.com/mikel-brostrom/yolo_tracking). If problem still persist, feel free to create an issue in this repo.
+
 ### 1. Unsupported 'dets' input type '<class 'ultralytics.engine.results.Boxes'>', valid format is np.ndarray
 Solution: [please uninstall ultralytics that you have manually downloaded](https://github.com/mikel-brostrom/yolo_tracking/issues/1071#issuecomment-1684865948)
 ```
