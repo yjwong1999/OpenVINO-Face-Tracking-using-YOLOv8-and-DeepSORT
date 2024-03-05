@@ -5,7 +5,8 @@ pip install gdown==4.6.1
 ```
 
 ### 2. onnxruntime.capi.onnxruntime_pybind11_state.InvalidProtobuf: [ONNXRuntimeError] : 7 : INVALID_PROTOBUF
-Solution: [onnx and onnx runtime version should match](https://onnxruntime.ai/docs/reference/compatibility.html)
+Solution: [onnx and onnx runtime version should match](https://onnxruntime.ai/docs/reference/compatibility.html) </br>
+Note that you may need to check protobuf version also
 ```
 (EXAMPLE)
 # Dependencies for onnx
