@@ -10,13 +10,13 @@ Solution: [please uninstall ultralytics that you have manually downloaded](https
 pip uninstall ultralytics
 ```
 
-### 2. AttributeError: 'NoneType' object has no attribute 'groups'
+### 3. AttributeError: 'NoneType' object has no attribute 'groups'
 Solution: [gdown version](https://github.com/mikel-brostrom/yolo_tracking/issues/1248#issuecomment-1889563576)
 ```
 pip install gdown==4.6.1
 ```
 
-### 3. onnxruntime.capi.onnxruntime_pybind11_state.InvalidProtobuf: [ONNXRuntimeError] : 7 : INVALID_PROTOBUF
+### 4. onnxruntime.capi.onnxruntime_pybind11_state.InvalidProtobuf: [ONNXRuntimeError] : 7 : INVALID_PROTOBUF
 Solution: [onnx and onnx runtime version should match](https://onnxruntime.ai/docs/reference/compatibility.html) </br>
 Note that you may need to check protobuf version also
 ```
