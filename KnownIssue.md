@@ -56,3 +56,10 @@ pip install optimum[onnxruntime-gpu]==1.16
 
 # disclaimer: please select the appropriate version based on your os/pytorch/etc...
 ```
+
+### 8. segmentation fault (core dumped)
+Solution: There is too many possibility which contributes to this error, making it hard to pinpoint the exact root cause for this error. However, there are a few possibilities
+```
+1. pytorch version you install is not compatible with the CUDA and NVIDIA driver version.
+2. you passed the arguments wrongly
+```
