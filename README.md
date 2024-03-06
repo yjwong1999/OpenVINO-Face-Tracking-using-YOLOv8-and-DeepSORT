@@ -134,7 +134,7 @@ Please download the latest Jupyter Notebook (YOLOv8 Training for UFDD.ipynb.ipyn
 
 
 ## Known Issues
-Please check this [link](https://github.com/yjwong1999/OpenVINO-Face-Tracking-using-YOLOv8-and-DeepSORT/blob/main/KnownIssue.md)
+Please check this [link](https://github.com/yjwong1999/OpenVINO-Face-Tracking-using-YOLOv8-and-DeepSORT/blob/main/docs/KnownIssues.md)
 
 
 ## Acknowledgement
