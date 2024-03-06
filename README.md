@@ -46,6 +46,13 @@ pip3 install oauth2client==4.1.3
 # install remaining requirements
 pip3 install -r requirements.txt
 pip install gdown==4.6.1
+
+# for onnxruntime-gpu
+pip uninstall onnxruntime
+pip uninstall onnxruntime-gpu
+pip install optimum[onnxruntime-gpu]==1.16
+
+# disclaimer: please select the appropriate version based on your os/pytorch/etc...
 ```
 
 - Find physical port(s) of the device which is connected to camera
