@@ -35,7 +35,7 @@ cd yolo_tracking
 
 - Install dependencies
 ```
-# install pytorch
+# install pytorch (pls dont blindly install, make sure you install the version compatible to your device/os/nvidia version)
 pip3 install torch==2.0.0 torchvision==0.15.1 torchaudio==2.0.1 --index-url https://download.pytorch.org/whl/cu118
 
 # google api for drive upload
