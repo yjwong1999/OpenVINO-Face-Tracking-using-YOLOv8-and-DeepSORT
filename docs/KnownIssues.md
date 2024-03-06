@@ -48,7 +48,7 @@ Solution: Refer OpenSphere [export guide](https://github.com/yjwong1999/opensphe
 ```
 
 ### 7. onnxruntime_inference_collection.py:69: UserWarning: Specified provider 'CUDAExecutionProvider' is not in available provider names.Available providers: 'AzureExecutionProvider, CPUExecutionProvider'
-Solution: You may need to reinstall onnxruntime and onnxruntime-gpu version, to avoid conflicts between onnxruntime and onnxruntime-gpu [link 1](https://stackoverflow.com/a/76463621)[link 2](https://huggingface.co/docs/optimum/main/en/onnxruntime/usage_guides/gpu#cuda-installation).
+Solution: You may need to reinstall onnxruntime and onnxruntime-gpu version, to avoid conflicts between onnxruntime and onnxruntime-gpu [link 1](https://stackoverflow.com/a/76463621)[link 2](https://huggingface.co/docs/optimum/main/en/onnxruntime/usage_guides/gpu#cuda-installation). You can check [here](https://onnxruntime.ai/docs/execution-providers/CUDA-ExecutionProvider.html#requirementsto)
 ```
 pip uninstall onnxruntime
 pip uninstall onnxruntime-gpu
