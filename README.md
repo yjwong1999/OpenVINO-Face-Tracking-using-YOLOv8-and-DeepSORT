@@ -50,9 +50,9 @@ pip install gdown==4.6.1
 # for onnxruntime-gpu
 pip uninstall onnxruntime
 pip uninstall onnxruntime-gpu
-pip install optimum[onnxruntime-gpu]==1.16
+pip install optimum[onnxruntime-gpu]
 
-# disclaimer: please select the appropriate version based on your os/pytorch/etc...
+# disclaimer: please select the appropriate version based on your os/pytorch/onnxruntime/etc...
 ```
 
 - Find physical port(s) of the device which is connected to camera
