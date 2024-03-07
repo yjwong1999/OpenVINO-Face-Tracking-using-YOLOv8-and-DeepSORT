@@ -19,7 +19,7 @@ cd OpenVINO-Face-Tracking-using-YOLOv8-and-DeepSORT
 
 - Create a conda environment for MCFDR, and activate it
 ```
-conda create --name mcfdr python=3.8.10
+conda create --name mcfdr python=3.8.10 -y
 conda activate mcfdr 
 ```
 
