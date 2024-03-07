@@ -50,7 +50,7 @@ Solution: Refer OpenSphere [export guide](https://github.com/yjwong1999/opensphe
 ### 7. onnxruntime_inference_collection.py:69: UserWarning: Specified provider 'CUDAExecutionProvider' is not in available provider names.Available providers: 'AzureExecutionProvider, CPUExecutionProvider'
 Solution: You may need to reinstall onnxruntime and onnxruntime-gpu version, to avoid conflicts between onnxruntime and onnxruntime-gpu [link 1](https://stackoverflow.com/a/76463621)[link 2](https://huggingface.co/docs/optimum/main/en/onnxruntime/usage_guides/gpu#cuda-installation). You can check [here](https://onnxruntime.ai/docs/execution-providers/CUDA-ExecutionProvider.html#requirementsto)
 ```
-# uninstall default (if any)
+# uninstall default
 pip uninstall onnxruntime
 pip uninstall onnxruntime-gpu
 
@@ -63,7 +63,18 @@ pip install onnxruntime-gpu --extra-index-url https://aiinfra.pkgs.visualstudio.
 # disclaimer: please select the appropriate version based on your os/pytorch/etc...
 ```
 
-### 8. segmentation fault (core dumped)
+### 8. When I run the code using onnx, the GPU is not utilized
+Solution: Need to uninstall onnxruntime + uninstall onnxruntime-gpu + install the appropriate version for onnxruntime-gpu (same like Issue 7)</br>
+Note that if onnxruntime is installed, it may hinder onnxruntime-gpu from being used. So please uninstall onnxruntime
+```
+# uninstall default
+pip uninstall onnxruntime
+pip uninstall onnxruntime-gpu
+
+# install the appropriate version (refer Issue 7)
+```
+
+### 9. segmentation fault (core dumped)
 Solution: There is too many possibility which contributes to this error, making it hard to pinpoint the exact root cause for this error. However, there are a few possibilities
 ```
 1. pytorch version you install is not compatible with the CUDA and NVIDIA driver version.
