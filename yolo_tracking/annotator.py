@@ -22,7 +22,8 @@ class Matcher:
                             'unrecognizable': []
                           }
         self.count_ID = 0
-        self.processed_image_paths = []     
+        self.processed_image_paths = []   
+        self.processed_dirs        = []
         self.if_new_ID = False
 
         #button info
@@ -115,6 +116,8 @@ class Matcher:
             image_path1 = all_image_paths[i]
 
             # if had been processed
+            if os.path.split(image_path1)[0] in self.processed_dirs:
+                continue            
             if image_path1 in self.processed_image_paths:
                 continue
             
@@ -148,6 +151,13 @@ class Matcher:
                 
                 # get 2nd image path
                 image_path2 = all_image_paths[j]
+
+                if os.path.split(image_path2)[0] in self.processed_dirs:
+                    continue            
+                if image_path2 in self.processed_image_paths:
+                    continue
+                                
+                # compare this image
                 self.display_two_images(image_path1, image_path2)
 
                 if not self.if_new_ID:
@@ -209,7 +219,8 @@ class Matcher:
             print("too blur cannot la")
             plt.close()
             self.actual_IDs['blur'].append(image_path)
-            self.processed_image_paths.append(image_path) # dont have to check this path again
+            directory, file_name = os.path.split(image_path)
+            self.processed_dirs.append(directory) # dont have to check this path again
             self.if_new_ID = False
 
         btn3.on_clicked(bFace)
@@ -221,7 +232,8 @@ class Matcher:
             print("cannot cannot this one")
             plt.close()
             self.actual_IDs['unrecognizable'].append(image_path)
-            self.processed_image_paths.append(image_path) # dont have to check this path again
+            directory, file_name = os.path.split(image_path)
+            self.processed_dirs.append(directory) # dont have to check this path again
             self.if_new_ID = False
           
         btn4.on_clicked(unRecog)      
@@ -301,7 +313,8 @@ class Matcher:
             print("too blur cannot la")
             plt.close()
             self.actual_IDs['blur'].append(image_path2)
-            self.processed_image_paths.append(image_path2) # dont have to check this path again    
+            directory, file_name = os.path.split(image_path2)
+            self.processed_dirs.append(directory) # dont have to check this path again    
             self.if_new_ID = False
 
         btn3.on_clicked(bFace)
@@ -313,7 +326,8 @@ class Matcher:
             print("cannot cannot this one")
             plt.close()
             self.actual_IDs['unrecognizable'].append(image_path2)
-            self.processed_image_paths.append(image_path2) # dont have to check this path again
+            directory, file_name = os.path.split(image_path2)
+            self.processed_dirs.append(directory) # dont have to check this path again
             self.if_new_ID = False
          
         btn4.on_clicked(unRecog)
@@ -345,7 +359,7 @@ sample_num = opt.sample_num
 
 # validate
 assert os.path.isdir(root_dir), f'Directory "{root_dir}" does not available!'
-assert sample_num >= 5, f'argument --sample-num must be at least 5'
+assert sample_num >= 2, f'argument --sample-num must be at least 2'
 
 sub_dirs = []
 for path in os.listdir(root_dir):
